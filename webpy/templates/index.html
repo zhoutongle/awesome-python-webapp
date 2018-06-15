@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;" charset="utf-8"/>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+<link href="static/css/dataTable.css" rel="stylesheet" type="text/css">
+<link href="static/css/style.css" rel="stylesheet" type="text/css">
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="static/js/utils.js"></script>
+<script src="static/js/lib/DatePicker/WdatePicker.js"></script>
+<script src="static/js/jquery.dataTables.js"></script>
+<title>管理系统</title>
+
+<script type="text/JavaScript">
+</script>
+</head>
+<body>
+    <div id="neversike" style="margin-top:40px;background:#adadad;">
+        <!--p>基本的胶囊式导航菜单</p-->
+        <ul class="container nav nav-pills nav-left navbar-fixed-top" style="width:998px">
+            <li><a href="/" onclick="">首页</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">管理员<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0)" onclick="custAlert('123','123')">修改密码</a></li>
+                    <li><a href="/logout" onclick="">退出</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" >帮助<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0)" onclick="info()">产品信息</a></li> 
+                </ul>
+            </li>
+            <li><a href="javascript:void(0)" onclick="settime()">设置时间</a></li>
+            <li class="dropdown pull-right">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">语言<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">简体中文</a>
+                    </li>
+                    <li>
+                        <a href="#">繁体中文</a>
+                    </li>
+                    <li> 
+                        <a href="#">中文</a>
+                    </li>
+                    <li class="divider">
+                    </li>
+                    <li>
+                        <a href="#">英文</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="container" style="width:998px;" >                  
+        <img src="static/image/header-bg.jpg" class="img-responsive" alt="Cinque Terre" width="998px" height="236"> 
+    </div>
+    <div id="box" class="container" style="margin-top:30px;width:998px;">
+        <div class="container-fluid">
+            <div class="row" style="border:1px solid #A6C9E2;border-radius: 10px;">
+                <div class="col-md-2" style="margin-top:10px;border-right: 1px solid #A6C9E2;border-radius: 10px;">
+                    <ul id="main-nav" class="nav nav-tabs nav-stacked">
+                        <li class="active">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-th-large"></i>
+                                首页 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse">
+                                <i class="glyphicon glyphicon-cog"></i>
+                                系统管理
+                                <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                            </>
+                            <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                                <li><a href="#"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="./info.html"><i class="glyphicon glyphicon-credit-card"></i>物料管理 </a></li>
+                        <li><a href="./grid.html"><i class="glyphicon glyphicon-globe"></i>分发配置<!--span class="label label-warning pull-right">5</span--></a></li>
+                        <li><a href="./charts.html"><i class="glyphicon glyphicon-calendar"></i>图表统计</a></li>
+                        <li><a href="javascript:get_info()"><i class="glyphicon glyphicon-fire"></i>关于系统</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    <div id="content" style="margin-top:10px">
+                        主页
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    function info(){                                                                                                                                                                  
+        var url = "/info?" + new Date().getTime();  
+        var dirmanage = $$('<div id="dirmanagedialog" >').appendTo('body');      
+        dirmanage.dialog({                                                                            
+            bgiframe: true,                                                                                            
+            modal: true,                                                                                               
+            autoOpen:false,                                                                                            
+            resizable:false,                                                                                           
+            width:600,
+            title:"信息",
+            open:function(){                                                                                           
+                custLoading("正在加载数据...");                                                                 
+            },                                                                                                         
+            close:function(){                                                                                          
+                $$(this).remove();                                                                                 
+            },                                                                                                         
+            buttons:{                                                                                                  
+                "确定": function() {                                                                          
+                    dirmanage.dialog("close");                                                                     
+                }                                                                                                      
+            }                                                                                                          
+        });                                                                                                            
+        $$("#dirmanagedialog").load(url,'',function(){                                                             
+            $$('#loaddialog').dialog('close');                                                                     
+        });                                                                                                            
+        $$("#dirmanagedialog").dialog("open");                                                                    
+    }
+    function get_info(){
+        var url = "/info?" + new Date().getTime();
+        $$.ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'html',
+            success:function(text){
+                $$("#content").html(text);
+            },
+            error:function(){
+                custAlert("操作失败", "获得系统信息失败！")
+            }
+        });
+    }
+    function modify_content(){
+        var url = "modifycontent?" + + new Date().getTime();  
+        var addmanage = $$('<div id="modifycontentdialog" >').appendTo('body');      
+        modifymanage.dialog({                                                                            
+            bgiframe: true,                                                                                            
+            modal: true,                                                                                               
+            autoOpen:false,                                                                                            
+            resizable:false,                                                                                           
+            width:600,
+            title:"信息",
+            open:function(){                                                                                           
+                custLoading("Loading Data ...");                                                                 
+            },                                                                                                         
+            close:function(){                                                                                          
+                $$(this).remove();                                                                                 
+            },                                                                                                         
+            buttons:{                                                                                                  
+                "确定": function() {                                                                          
+                    modifymanage.dialog("close");                                                                     
+                }                                                                                                      
+            }                                                                                                          
+        });                                                                                                            
+        $$("#modifycontentdialog").load(url,'',function(){                                                             
+            $$('#loaddialog').dialog('close');                                                                     
+        });                                                                                                            
+        $$("#modifycontentdialog").dialog("open");                                                                    
+    }
+    function settime(){                                                                                                                                                                  
+        var url = "/settime?" + + new Date().getTime();  
+        var settimemanage = $$('<div id="settimedialog" >').appendTo('body');      
+        settimemanage.dialog({                                                                            
+            bgiframe: true,                                                                                            
+            modal: true,                                                                                               
+            autoOpen: false,                                                                                            
+            resizable: false,                                                                                           
+            width:600,
+            title:"设置系统时间",
+            open:function(){                                                                                           
+                custLoading("Loading Data ...");                                                                 
+            },                                                                                                         
+            close:function(){                                                                                          
+                $$(this).remove();                                                                                 
+            },                                                                                                         
+            buttons:{                                                                                                  
+                "确定": function() {                                                                          
+                    settimemanage.dialog("close");                                                                     
+                }                                                                                                      
+            }                                                                                                          
+        });                                                                                                            
+        $$("#settimedialog").load(url,'',function(){                                                             
+            $$('#loaddialog').dialog('close');                                                                     
+        });                                                                                                            
+        $$("#settimedialog").dialog("open");                                                                    
+    }
+    function logout(){
+        var url = "/logout?" + + new Date().getTime();
+        $$.ajax({
+            url : url,
+            type : 'POST',
+            async: false,
+            dataType : '',
+            success:function(text){
+                if(text == 0){
+                    alert("000");
+                }else{
+                    alert("1error!!!");
+                }
+            },
+            error:function(){
+                alert("2error!!!");
+            }
+        });
+        
+    }
+</script>

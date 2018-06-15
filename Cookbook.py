@@ -1,10 +1,12 @@
 #!/usr/bin/python
+# coding: utf-8
 
 '''
    3.14 找出当月的日期范围
    解决：计算范围开始和结束，迭代是利用datetime.timedelta对象 来递增日期。
    calendar 为日历模块  eg. calendar.weekday(year, month, day) 返回日期的日期码 0（星期一）到6（星期日）
 '''
+print("=====================  3.14  ===========================")
 from datetime import datetime,date,timedelta
 import calendar
 
@@ -85,25 +87,29 @@ print(pytz.country_timezones['IN'])
     解决：手动访问，可以使用next（）函数
 
 '''
-with open('D:\\test\\awesome-python-webapp\\readme.txt') as f:
+print("=====================  4.1  ===========================")
+#with open('D:\\test\\awesome-python-webapp\\readme.txt') as f:
+with open('readme.txt') as f:
     try:
         while True:
             line = next(f)
-            print(line, end='')
+            print(line)
     except StopIteration:
         pass
 
-with open('D:\\test\\awesome-python-webapp\\readme.txt') as f:
+#with open('D:\\test\\awesome-python-webapp\\readme.txt') as f:
+with open('readme.txt') as f:
     while True:
         line = next(f, None)
         if line is None:
             break
-        print(line, end='')
+        print(line)
 
 '''
     4.2 委托迭代
     解决： 定义一个__iter__()方法，将迭代请求委托到对象内部持有的容器上
 '''
+print("=====================  4.2  ===========================")
 class Node:
     def __init__(self, value):
         self._value = value
@@ -118,10 +124,10 @@ class Node:
     def __iter__(self):
         return iter(self._children)
 
-    def depth_first(self):
-        yield self
-        for c in self:
-            yield from c.depth_first()
+    #def depth_first(self):
+    #    yield self
+    #    for c in self:
+    #        yield from c.depth_first()
 
 #Example
 if __name__ == '__main__':
@@ -138,6 +144,7 @@ if __name__ == '__main__':
    4.3 用生成器创建新的迭代模式
 
 '''
+print("=====================  4.3  ===========================")
 def frange(start, stop, increment):
     x = start
     while x < stop:
@@ -174,6 +181,7 @@ next(c)
 '''
     4.4 实现迭代协议
 '''
+print("=====================  4.4  ===========================")
 # Example
 if __name__ == '__main__':
     root = Node(0)
@@ -185,8 +193,8 @@ if __name__ == '__main__':
     child1.add_child(Node(4))
     child2.add_child(Node(5))
 
-    for ch in root.depth_first():
-        print(ch)
+    #for ch in root.depth_first():
+    #    print(ch)
         # Output Node(0), Node(1), Node(3), Node(4), Node(2), Node(5)
 
 class Node1:
@@ -237,4 +245,137 @@ class DepthFirstIterator(object):
         else:
             self._child_iter = next(self._children_iter).depth_first()
             return next(self)
+
+"""
+    4.5 反向迭代
+    解决：可以使用内建的reversed()函数实现反向迭代。
+"""
+print("=====================  4.5  ===========================")
+a = [1, 2, 3, 4]
+for x in reversed(a):
+    print(x)
+
+#反向打印文件里的内容,将可迭代对象转成列表可能会消耗大量内存。
+f = open('readme.txt')
+for line in reversed(list(f)):
+    print(line)
+
+#实现__reversed__()方法，可以用于自定义的类上面。
+class Countdown:
+    def __init__(self, start):
+        self.start = start
+
+    #Forward iterator
+    def __iter__(self):
+        n = self.start
+        while n > 0:
+            yield n
+            n -= 1
+
+    #Reverse iterator
+    def __reversed__():
+        n = 1
+        while n <= self.start:
+            yield n
+            n += 1
+
+"""
+    4.6 定义带有额外状态的生成器
+    解决：把生成器函数代码放到__iter__()方法中。
+"""
+print("=====================  4.6  ===========================")
+from collections import deque
+
+class linehistory:
+    def __init__(self, lines, histlen=3):
+        self.lines = lines
+        self.history = deque(maxlen=histlen)
+
+    def __iter__(self):
+        for lineno, line in enumerate(self.lines, 1):
+            self.history.append((lineno, line))
+            yield line
+
+    def clear(self):
+        self.history.clear()
+
+with open('Cookbook.py') as f:
+    lines = linehistory(f)
+    for line in lines:
+        if "python" in line:
+            for lineno, hline in lines.history:
+                print('{}:{}'.format(lineno, hline))
+
+"""
+    4.7 对迭代器做切片操作
+    解决：对迭代器和生成器做切片操作，itertools.iislice()函数是完美的选择。
+"""
+print("=====================  4.7  ===========================")
+def count(n):
+    while n < 100:
+        yield n
+        n += 1
+c = count(0)
+#print(c[10:20])
+
+import itertools
+for x in itertools.islice(c, 10, 20):
+    print(x)
+
+"""
+    4.8 跳过可迭代对象中的前一部分元素
+    解决：使用itertools模块中的itertools.dropwhile()函数。
+"""
+print("=====================  4.8  ===========================")
+from itertools import dropwhile
+with open("readme.txt") as f:
+    for line in dropwhile(lambda line: line.startswith('#'), f):
+        print(line)
+
+from itertools import islice
+items = ['a', 'b', 'c', 'd', '1', '4', '10']
+for x in islice(items, 3, None):
+    print(x)
+
+with open("readme.txt") as f:
+    lines = (line for line in f if not line.startswith('#'))
+    for line in lines:
+        print(line)
+
+"""
+    4.9 迭代所有可能的组合或排列
+    解决：itertools模块提供了3各函数，
+    第一个是itertools.permutations(), 6种 {1,2,3},{1,3,2},{2,1,3},{2,3,1},{3,2,1},{3,1,2}
+    第二个是itertools.combinations(), 1种 {1,2,3}
+    第三个是itertools.combinations_with_replacement(), 10种{1,1,1},{1,1,2},{1,1,3},{2,2,2},{2,2,1},{2,2,3},{3,3,3},{3,3,1},{3,3,2},{1,2,3}
+
+"""
+print("=====================  4.9  ===========================")
+items = ['a', 'b', 'c']
+from itertools import permutations
+for p in permutations(items):
+    print(p)
+
+for p in permutations(items, 2):
+    print(p)
+
+from itertools import combinations
+for c in combinations(items, 3):
+    print(c)
+
+for c in combinations(items, 2):
+    print(c)
+
+from itertools import combinations_with_replacement
+for c in combinations_with_replacement(items, 3):
+    print(c)
+
+"""
+    4.10 以索引-值对的的形式迭代序列
+    解决：使用内建的enumerate()函数
+"""
+print("=====================  4.10  ===========================")
+my_list = ["a", "b", "c"]
+for idx, val in enumerate(my_list, 1):
+    print(idx, val)
 

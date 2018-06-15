@@ -1,0 +1,31 @@
+<html>
+    <div>
+        <strong>当前时间：</strong> 
+        <span id="curr_time"></span>
+    </div>
+    <form id="set_time" method="post" action="">
+        <fieldset>
+            <label>设置时间：</label>
+            <input type="text" id="settime" name="settime" style="width:200px" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',lang:'zh_CN'})" />
+        </fieldset>
+    </form>
+</html>
+<script>
+    $$(function(){
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+        $$("#curr_time").html(currentdate);
+    });
+</script>
