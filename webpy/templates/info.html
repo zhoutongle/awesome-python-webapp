@@ -1,5 +1,36 @@
+$def with(content)
+
 <div align="center">
 	<h1>集群存储管理系统</h1>
 	<h4>文件系统版本: 3.7.12-43</h4>
 	<h4>管理系统版本: 3.8.1-76</h4>
+</div>
+
+
+<div id="baseinfo" align="center">
+    <div id="vitals" style="width:500px">
+        <h2><span>基础信息</span></h2>    
+        <table class="stripMe" id="vitelsTable" cellpadding="0">        
+            <tr>
+                <td>ProductName</td>
+                <td>$content['ProductName']</td>
+            </tr>
+            <tr>
+                <td>EditionId</td>
+                <td>$content['EditionId']</td>
+            </tr>
+            <tr>
+                <td>ReleaseId</td>
+                <td>$content['ReleaseId']</td>
+            </tr>
+            <tr>
+                <td>CurrentBuild</td>
+                <td>$content['CurrentBuild']</td>
+            </tr>
+            <tr>
+                <td>BuildLabEx</td>
+                <td>$content['BuildLabEx']</td>
+            </tr>
+        </table>
+    </div>
 </div>

@@ -15,6 +15,7 @@ body{
     background-color:#FFF;
 }
 /*****************************************/
+
 table{
     width:100%;
     line-height:25px;
@@ -113,4 +114,23 @@ table.datatable{
     vertical-align: middle;
     padding-left: 50px;
     color: #fff;
+}
+/*表格样式*/
+#vitals{
+    float: ;
+    width: 415px;
+    margin: 10px 10px 10px 10px;
+    padding: 1px;
+    border: 1px solid #5A7E8A
+}
+
+h2{
+    padding: 5px 10px;
+    font-family: "trebuchet ms";
+    font-size: 1.2em;
+    font-weight: bold;
+    letter-spacing: 0.0em;
+    text-transform: uppercase;
+    color:#fff;
+    background: #2971A7;
 }

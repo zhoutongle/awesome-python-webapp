@@ -1,0 +1,85 @@
+$def with(content)
+
+<body>
+    <div id="main_chart" style="width: 360px;height: 280px;"></div>
+</body>
+
+
+<script type="text/javascript">
+    getdiskinfoa()
+    function getdiskinfoa(){
+        var url = "/getdiskinfoa?" + new Date().getTime();
+        $$.ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: '',
+            beforeSend: function(){
+                custLoading("正在加载数据...");
+            },
+            success:function(text){
+                $$('#loaddialog').dialog('close');
+                getdiskinfob(text)
+            },
+            error:function(){
+                $$('#loaddialog').dialog('close');
+                custAlert("操作失败", "获得系统信息失败！")
+            }
+        });
+    }
+    function getdiskinfob(info){
+        var info = [123, 456];
+        var myChart = echarts.init(document.getElementById("main_chart"));
+        var myOption = {
+            title : {
+                text: 'C盘',
+                subtext: '使用率',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color:['red','green'],
+            legend: {
+                orient : 'vertical',
+                x : 'left',
+                data:['已使用大小', '空闲大小']
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'大小比例',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    // 设置标题直接带百分比
+                    itemStyle: {
+                        normal:{
+                            label:{
+                                show: true,
+                                formatter: '{b}:({d}%)'
+                            },
+                            labelLine :{show:true}
+                        }
+                    },
+                    // 设置字体
+                    label:{
+                        normal:{
+                            textStyle : {
+                                fontWeight : 'bold',
+                                fontSize : 10
+                            }
+                        }
+                    },
+                    data:[
+                        {value: info[0], name:'已使用大小'},
+                        {value: info[1], name:'空闲大小'}
+                    ]
+                }
+            ]
+        };
+
+        myChart.setOption(myOption);
+    }
+</script>
