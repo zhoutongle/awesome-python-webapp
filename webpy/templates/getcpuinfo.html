@@ -1,0 +1,80 @@
+
+<div id="linechart" style="width: 650px;height: 400px;">
+
+</div>
+
+<script type="text/javascript">
+    getcpuinfoa()
+    function getcpuinfoa(){
+         var url = "/getcpuinfoa?" + new Date().getTime();
+        $$.ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'json',
+            //beforeSend: function(){
+            //    custLoading("正在加载数据...");
+            //},
+            success:function(text){
+            //    $$('#loaddialog').dialog('close');
+                getcpuinfob(text)
+            },
+            error:function(){
+            //    $$('#loaddialog').dialog('close');
+                custAlert("操作失败", "获得系统信息失败！")
+            }
+        });
+        cpu_intv_time=setTimeout(function(){getcpuinfoa();},20000);
+    }
+    function getcpuinfob(info){
+        var x_data = [];
+        var cpu_data = [];
+        var mem_data = [];
+        for(var i = 0;i < info.length; i++){
+            x_data.push(info[i]['time'])
+            cpu_data.push(info[i]['cpu_percent'])
+            mem_data.push(info[i]['mem_percent'])
+        }
+        var chart = echarts.init(document.getElementById("linechart"));
+        var option = {
+            title: {
+                text: 'cpu使用率'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['cpu使用率', '内存使用率']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: x_data
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'cpu使用率',
+                    type:'line',
+                    stack: '百分比',
+                    data: cpu_data
+                },
+                {
+                    name:'内存使用率',
+                    type:'line',
+                    stack: '百分比',
+                    data: mem_data
+                }
+            ]
+        };
+        chart.setOption(option);
+    }
+</script>

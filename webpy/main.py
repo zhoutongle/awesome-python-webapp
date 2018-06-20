@@ -1,7 +1,19 @@
 import web
 from base import *
+import simplejson
+import datetime
+
+currpath = os.path.join(os.getcwd(), os.path.dirname(__file__))
+if not currpath in sys.path:
+    sys.path.append(currpath)
+    
+utilspath = os.path.join(currpath, 'utils')
+if not utilspath in sys.path:
+    sys.path.append(utilspath)
+
 from system_utils import *
-from cpu import *
+from cpu_utils import *
+
 urls = (
     '/', 'index',
     '/info', 'info',
@@ -10,6 +22,9 @@ urls = (
     '/settime', 'settime',
     '/getdisk', 'getdisk',
     '/getdiskinfoa', 'getdiskinfoa',
+    '/geticoninfo', 'geticoninfo',
+    '/getcpuinfo', 'getcpuinfo',
+    '/getcpuinfoa', 'getcpuinfoa'
 )
 
 app = web.application(urls, globals())
@@ -61,8 +76,20 @@ class getdisk:
 class getdiskinfoa:
     def GET(self):
         content = get_disk_info()
-        print(content)
-        return content
+        return simplejson.dumps(content)
+
+class geticoninfo:
+    def GET(self):
+        return render.geticoninfo()
+
+class getcpuinfo:
+    def GET(self):
+        return render.getcpuinfo()
+        
+class getcpuinfoa:
+    def GET(self):
+        content = get_cpu_mem_info()
+        return simplejson.dumps(content)
         
 if __name__ == "__main__":
     web.internalerror = web.debugerror

@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 <link href="static/css/dataTable.css" rel="stylesheet" type="text/css">
 <link href="static/css/style.css" rel="stylesheet" type="text/css">
+<link href="static/css/icon-picker.css" rel="stylesheet" type="text/css">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -20,6 +21,7 @@
 <script src="static/js/lib/DatePicker/WdatePicker.js"></script>
 <script src="static/js/jquery.dataTables.js"></script>
 <script src="static/js/echarts.js"></script>
+<script src="static/js/iconPicker.js"></script>
 <title>管理系统</title>
 
 <script type="text/JavaScript">
@@ -93,8 +95,8 @@
                                 <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:void()"><i class="glyphicon glyphicon-credit-card"></i>物料管理 </a></li>
-                        <li><a href="javascript:void()"><i class="glyphicon glyphicon-globe"></i>分发配置<!--span class="label label-warning pull-right">5</span--></a></li>
+                        <li><a href="javascript:get_icon_info()"><i class="glyphicon glyphicon-credit-card"></i>物料管理 </a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-globe"></i>分发配置<!--span class="label label-warning pull-right">5</span--></a></li>
                         <li>
                             <a href="#charts" class="nav-header collapsed" data-toggle="collapse">
                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -102,7 +104,8 @@
                                 <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul id="charts" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                                <li><a href="javascript:get_disk_usage()"><i class="glyphicon glyphicon-user"></i>磁盘使用率</a></li>
+                                <li><a href="javascript:get_disk_usage()"><i class="glyphicon glyphicon-floppy-disk"></i>磁盘使用率</a></li>
+                                <li><a href="javascript:get_cpu_usage()"><i class="glyphicon glyphicon-leaf"></i>内存使用率</a></li>
                             </ul>
                         </li>
                         <li><a href="javascript:get_info()"><i class="glyphicon glyphicon-fire"></i>关于系统</a></li>
@@ -242,6 +245,46 @@
     }
     function get_disk_usage(){
         var url = "/getdisk?" + new Date().getTime();
+        $$.ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'html',
+            beforeSend: function(){
+                custLoading("正在加载数据...");
+            },
+            success:function(text){
+                $$('#loaddialog').dialog('close');
+                $$("#content").html(text);
+            },
+            error:function(){
+                $$('#loaddialog').dialog('close');
+                custAlert("操作失败", "获得系统信息失败！")
+            }
+        });
+    }
+    function get_icon_info(){
+        var url = "/geticoninfo?" + new Date().getTime();
+        $$.ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'html',
+            beforeSend: function(){
+                custLoading("正在加载数据...");
+            },
+            success:function(text){
+                $$('#loaddialog').dialog('close');
+                $$("#content").html(text);
+            },
+            error:function(){
+                $$('#loaddialog').dialog('close');
+                custAlert("操作失败", "获得系统信息失败！")
+            }
+        });
+    }
+    function get_cpu_usage(){
+        var url = "/getcpuinfo?" + new Date().getTime();
         $$.ajax({
             url : url,
             data: '',

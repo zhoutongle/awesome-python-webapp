@@ -1,8 +1,7 @@
 $def with(content)
 
-<body>
-    <div id="main_chart" style="width: 360px;height: 280px;"></div>
-</body>
+<div id="main">
+</div>
 
 
 <script type="text/javascript">
@@ -13,13 +12,13 @@ $def with(content)
             url : url,
             data: '',
             async: false,
-            dataType: '',
+            dataType: 'json',
             beforeSend: function(){
                 custLoading("正在加载数据...");
             },
             success:function(text){
                 $$('#loaddialog').dialog('close');
-                getdiskinfob(text)
+                createcharts(text)
             },
             error:function(){
                 $$('#loaddialog').dialog('close');
@@ -27,12 +26,20 @@ $def with(content)
             }
         });
     }
-    function getdiskinfob(info){
-        var info = [123, 456];
-        var myChart = echarts.init(document.getElementById("main_chart"));
+    function createcharts(info){
+        for(var i=0; i < info.length; i++){
+            var id = "main_" + info[i]['id']
+            var boarddiv = '<div id="'+  id + '" style="width: 360px;height: 280px;border:1px solid #A6C9E2;"></div>'
+            $$("#main").append(boarddiv)
+            getdiskinfob(info[i], id)
+        }
+    }
+    function getdiskinfob(info, id){
+        var myChart = echarts.init(document.getElementById(id));
+        var namestr = info['id'] + " (" + info['total'] + info['unit'] + ")"
         var myOption = {
             title : {
-                text: 'C盘',
+                text: namestr,
                 subtext: '使用率',
                 x:'center'
             },
@@ -40,7 +47,7 @@ $def with(content)
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
-            color:['red','green'],
+            color:['pink','lightskyblue'],
             legend: {
                 orient : 'vertical',
                 x : 'left',
@@ -73,8 +80,8 @@ $def with(content)
                         }
                     },
                     data:[
-                        {value: info[0], name:'已使用大小'},
-                        {value: info[1], name:'空闲大小'}
+                        {value: info['used'], name:'已使用大小'},
+                        {value: info['free'], name:'空闲大小'}
                     ]
                 }
             ]
