@@ -22,7 +22,7 @@
 <script src="static/js/jquery.dataTables.js"></script>
 <script src="static/js/echarts.js"></script>
 <script src="static/js/iconPicker.js"></script>
-<title>管理系统</title>
+<title>$_("manager_system")</title>
 
 <script type="text/JavaScript">
 </script>
@@ -31,30 +31,24 @@
     <div id="neversike" style="margin-top:40px;background:#adadad;">
         <!--p>基本的胶囊式导航菜单</p-->
         <ul class="container nav nav-pills nav-left navbar-fixed-top" style="width:998px">
-            <li><a href="/" onclick="">首页</a></li>
+            <li><a href="/" onclick="">$_("home_page")</a></li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">管理员<span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">$_('administrator')<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" onclick="custAlert('123','123')">修改密码</a></li>
-                    <li><a href="/logout" onclick="">退出</a></li>
+                    <li><a href="javascript:void(0)" onclick="custAlert('123','123')">$_('change_password')</a></li>
+                    <li><a href="/logout" onclick="">$_('exit')</a></li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" >帮助<span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" >$_('help')<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" onclick="info()">产品信息</a></li> 
+                    <li><a href="javascript:void(0)" onclick="info()">$_('product_information')</a></li> 
                 </ul>
             </li>
-            <li><a href="javascript:void(0)" onclick="settime()">设置时间</a></li>
+            <li><a href="javascript:void(0)" onclick="settime()">$_('set_time')</a></li>
             <li class="dropdown pull-right">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">语言<strong class="caret"></strong></a>
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">$_('language')<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
-                    <li>
-                        <a href="#">简体中文</a>
-                    </li>
-                    <li>
-                        <a href="#">繁体中文</a>
-                    </li>
                     <li> 
                         <a href="#">中文</a>
                     </li>
@@ -72,7 +66,7 @@
     </div>
     <div id="box" class="container" style="margin-top:30px;width:998px;">
         <div class="container-fluid">
-            <div class="row" style="border:1px solid #A6C9E2;border-radius: 10px;">
+            <div class="row" style="border:1px solid #A6C9E2;border-radius: 10px;min-height:750px">
                 <div class="col-md-2" style="margin-top:10px;border-right: 1px solid #A6C9E2;border-radius: 10px;">
                     <ul id="main-nav" class="nav nav-tabs nav-stacked">
                         <li class="active">
@@ -92,7 +86,7 @@
                                 <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
                                 <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
                                 <li><a href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>
+                                <li><a href="javascript:get_log()"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>
                             </ul>
                         </li>
                         <li><a href="javascript:get_icon_info()"><i class="glyphicon glyphicon-credit-card"></i>物料管理 </a></li>
@@ -113,7 +107,7 @@
                 </div>
                 <div class="col-md-10">
                     <div id="content" style="margin-top:10px">
-                        主页
+                        $_("page")
                     </div>
                 </div>
             </div>
@@ -136,7 +130,7 @@
                 custLoading("正在加载数据...");                                                                 
             },                                                                                                         
             close:function(){                                                                                          
-                $$(this).remove();                                                                                 
+                $(ELT)(this).remove();                                                                                 
             },                                                                                                         
             buttons:{                                                                                                  
                 "确定": function() {                                                                          
@@ -144,14 +138,14 @@
                 }
             }
         });
-        $$("#dirmanagedialog").load(url,'',function(){
-            $$('#loaddialog').dialog('close');
+        $(ELT)("#dirmanagedialog").load(url,'',function(){
+            $(ELT)('#loaddialog').dialog('close');
         });
-        $$("#dirmanagedialog").dialog("open");
+        $(ELT)("#dirmanagedialog").dialog("open");
     }
     function get_info(){
         var url = "/info?" + new Date().getTime();
-        $$.ajax({
+        $(ELT).ajax({
             url : url,
             data: '',
             async: false,
@@ -160,11 +154,11 @@
                 custLoading("正在加载数据...");
             },
             success:function(text){
-                $$('#loaddialog').dialog('close');
-                $$("#content").html(text);
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
             },
             error:function(){
-                $$('#loaddialog').dialog('close');
+                $(ELT)('#loaddialog').dialog('close');
                 custAlert("操作失败", "获得系统信息失败！")
             }
         });
@@ -180,10 +174,10 @@
             width:600,
             title:"信息",
             open:function(){                                                                                           
-                custLoading("Loading Data ...");                                                                 
+                custLoading("正在加载数据...");                                                                 
             },                                                                                                         
             close:function(){                                                                                          
-                $$(this).remove();                                                                                 
+                $(ELT)(this).remove();                                                                                 
             },                                                                                                         
             buttons:{                                                                                                  
                 "确定": function() {                                                                          
@@ -191,10 +185,10 @@
                 }                                                                                                      
             }                                                                                                          
         });                                                                                                            
-        $$("#modifycontentdialog").load(url,'',function(){                                                             
-            $$('#loaddialog').dialog('close');                                                                     
+        $(ELT)("#modifycontentdialog").load(url,'',function(){                                                             
+            $(ELT)('#loaddialog').dialog('close');                                                                     
         });                                                                                                            
-        $$("#modifycontentdialog").dialog("open");                                                                    
+        $(ELT)("#modifycontentdialog").dialog("open");                                                                    
     }
     function settime(){                                                                                                                                                                  
         var url = "/settime?" + new Date().getTime();  
@@ -210,7 +204,7 @@
                 custLoading("Loading Data ...");                                                                 
             },                                                                                                         
             close:function(){                                                                                          
-                $$(this).remove();                                                                                 
+                $(ELT)(this).remove();                                                                                 
             },                                                                                                         
             buttons:{                                                                                                  
                 "确定": function() {                                                                          
@@ -218,14 +212,14 @@
                 }                                                                                                      
             }                                                                                                          
         });                                                                                                            
-        $$("#settimedialog").load(url,'',function(){                                                             
-            $$('#loaddialog').dialog('close');                                                                     
+        $(ELT)("#settimedialog").load(url,'',function(){                                                             
+            $(ELT)('#loaddialog').dialog('close');                                                                     
         });                                                                                                            
-        $$("#settimedialog").dialog("open");                                                                    
+        $(ELT)("#settimedialog").dialog("open");                                                                    
     }
     function logout(){
         var url = "/logout?" + new Date().getTime();
-        $$.ajax({
+        $(ELT).ajax({
             url : url,
             type : 'POST',
             async: false,
@@ -245,7 +239,7 @@
     }
     function get_disk_usage(){
         var url = "/getdisk?" + new Date().getTime();
-        $$.ajax({
+        $(ELT).ajax({
             url : url,
             data: '',
             async: false,
@@ -254,18 +248,18 @@
                 custLoading("正在加载数据...");
             },
             success:function(text){
-                $$('#loaddialog').dialog('close');
-                $$("#content").html(text);
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
             },
             error:function(){
-                $$('#loaddialog').dialog('close');
+                $(ELT)('#loaddialog').dialog('close');
                 custAlert("操作失败", "获得系统信息失败！")
             }
         });
     }
     function get_icon_info(){
         var url = "/geticoninfo?" + new Date().getTime();
-        $$.ajax({
+        $(ELT).ajax({
             url : url,
             data: '',
             async: false,
@@ -274,8 +268,28 @@
                 custLoading("正在加载数据...");
             },
             success:function(text){
-                $$('#loaddialog').dialog('close');
-                $$("#content").html(text);
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
+            },
+            error:function(){
+                $(ELT)('#loaddialog').dialog('close');
+                custAlert("操作失败", "获得系统信息失败！")
+            }
+        });
+    }
+    function get_cpu_usage(){
+        var url = "/getcpuinfo?" + new Date().getTime();
+        $(ELT).ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'html',
+            beforeSend: function(){
+                custLoading("正在加载数据...");
+            },
+            success:function(text){
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
             },
             error:function(){
                 $$('#loaddialog').dialog('close');
@@ -283,9 +297,9 @@
             }
         });
     }
-    function get_cpu_usage(){
-        var url = "/getcpuinfo?" + new Date().getTime();
-        $$.ajax({
+    function get_log(){
+        var url = "/getlog?" + new Date().getTime();
+        $(ELT).ajax({
             url : url,
             data: '',
             async: false,
@@ -294,8 +308,8 @@
                 custLoading("正在加载数据...");
             },
             success:function(text){
-                $$('#loaddialog').dialog('close');
-                $$("#content").html(text);
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
             },
             error:function(){
                 $$('#loaddialog').dialog('close');

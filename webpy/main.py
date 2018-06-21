@@ -24,15 +24,56 @@ urls = (
     '/getdiskinfoa', 'getdiskinfoa',
     '/geticoninfo', 'geticoninfo',
     '/getcpuinfo', 'getcpuinfo',
-    '/getcpuinfoa', 'getcpuinfoa'
+    '/getcpuinfoa', 'getcpuinfoa',
+    '/getlog', 'getlog'
 )
 
 app = web.application(urls, globals())
 render=web.template.render('templates')
 
-allowed = (
-    ('Admin', '123456'),
-)
+#i18n
+alltranslations = web.storage()
+localedir = os.path.join(currpath,'i18n')
+
+def get_translations(lang='zh_CN'):
+    if lang in alltranslations:
+        translation = alltranslations[lang]
+    elif lang is None:
+        translation = gettext.NullTranslations()
+    else:
+        try:
+            translation = gettext.translation('messages',localedir,languages=[lang])
+        except Exception,e:
+            translation = gettext.NullTranslations()
+    return translation
+    
+def load_translations(lang):
+    lang = str(lang)
+    translation = alltranslations.get(lang)
+    if translation is None:
+        translation = get_translations(lang)
+        alltranslations[lang] = translation
+
+        for lk in alltranslations.keys():
+            if lk != lang:
+                del alltranslations[lk]
+    return translation
+    
+def custom_gettext(string):
+    lang = 'zh_CN'
+    if 'session' in globals() and 'user' in globals()['session'] and 'lang' in globals()['session'].user:
+        lang = session.user.get('lang')
+    translation = load_translations(lang)
+    if translation is None:
+        return unicode(string)
+    return translation.ugettext(string)
+
+
+#config template
+web.template.Template.globals['ELT'] = '$'
+web.template.Template.globals['_'] = custom_gettext
+
+
 web.config.debug = False
 session = web.session.Session(app, web.session.DiskStore('session'))
 
@@ -90,6 +131,10 @@ class getcpuinfoa:
     def GET(self):
         content = get_cpu_mem_info()
         return simplejson.dumps(content)
+
+class getlog:
+    def GET(self):
+        return render.log()
         
 if __name__ == "__main__":
     web.internalerror = web.debugerror

@@ -141,7 +141,16 @@ def show_os_info():
     print(get_system())
     print(get_uname())
 
-
+def getLocalIP():
+    import netifaces
+    routingNicName = netifaces.gateways()['default'][netifaces.AF_INET][1]
+    for interface in netifaces.interfaces():
+        if interface == routingNicName:
+            try:
+                routingIPAddr = netifaces.ifaddresses(interface)[netifaces.AF_INET][0]['addr']
+                return interface, routingIPAddr
+            except KeyError:
+                pass
 #################################################################################################################### 
 def get_system_encoding():
     """
@@ -187,6 +196,7 @@ def get_system_info():
                 system_info['ReleaseId'] = ReleaseId
                 system_info['CurrentBuild'] = CurrentBuild
                 system_info['BuildLabEx'] = BuildLabEx
+                system_info['Ipaddr'] = getLocalIP()[1]
                 #print (ProductName, EditionId, ReleaseId, CurrentBuild, BuildLabEx)
         except Exception as e:
             print e.message.decode(DEFAULT_LOCALE_ENCODING)

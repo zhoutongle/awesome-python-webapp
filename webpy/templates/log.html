@@ -1,0 +1,34 @@
+<table id="log">
+    <thead>
+        <th>时间</th>
+        <th>事件</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2018-6-22</td>
+            <td>过生日</td>
+        </tr>
+        <tr>
+            <td>2018-6-22</td>
+            <td>过生日</td>
+        </tr>
+        <tr>
+            <td>2018-6-22</td>
+            <td>过生日</td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    $(ELT)(function(){
+        $(ELT)("#log").DataTable({
+            "bSort": true,
+            "bStateSave": true,
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sUrl": "/static/js/temp/datatable_ZH"
+            }
+        });
+    });
+</script>

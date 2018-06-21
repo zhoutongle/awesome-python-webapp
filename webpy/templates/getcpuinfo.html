@@ -1,5 +1,5 @@
 
-<div id="linechart" style="width: 650px;height: 400px;">
+<div id="linechart" style="width: 700px;height: 300px;">
 
 </div>
 
@@ -16,11 +16,11 @@
             //    custLoading("正在加载数据...");
             //},
             success:function(text){
-            //    $$('#loaddialog').dialog('close');
+            //    $(ELT)('#loaddialog').dialog('close');
                 getcpuinfob(text)
             },
             error:function(){
-            //    $$('#loaddialog').dialog('close');
+            //    $(ELT)('#loaddialog').dialog('close');
                 custAlert("操作失败", "获得系统信息失败！")
             }
         });
@@ -38,7 +38,8 @@
         var chart = echarts.init(document.getElementById("linechart"));
         var option = {
             title: {
-                text: 'cpu使用率'
+                text: 'cpu和内存使用率',
+                subtext: '百分制'
             },
             tooltip: {
                 trigger: 'axis'
@@ -52,26 +53,53 @@
                 bottom: '3%',
                 containLabel: true
             },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: x_data
-            },
-            yAxis: {
-                type: 'value'
-            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: x_data
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} %'
+                    }
+                }
+            ],
             series: [
                 {
                     name:'cpu使用率',
                     type:'line',
-                    stack: '百分比',
-                    data: cpu_data
+                    data: cpu_data,
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
                 },
                 {
                     name:'内存使用率',
                     type:'line',
-                    stack: '百分比',
-                    data: mem_data
+                    data: mem_data,
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
                 }
             ]
         };

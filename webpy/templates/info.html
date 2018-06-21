@@ -6,24 +6,20 @@ $def with(content)
         <h2><span>基础信息</span></h2>    
         <table class="stripMe" id="vitelsTable" cellpadding="0">        
             <tr>
-                <td>ProductName</td>
+                <td>windows版本</td>
                 <td>$content['ProductName']</td>
             </tr>
             <tr>
-                <td>EditionId</td>
-                <td>$content['EditionId']</td>
+                <td>发行版本</td>
+                <td>版本 $content['ReleaseId']</td>
             </tr>
             <tr>
-                <td>ReleaseId</td>
-                <td>$content['ReleaseId']</td>
+                <td>内核版本</td>
+                <td>OS 内部版本 $content['BuildLabEx']</td>
             </tr>
             <tr>
-                <td>CurrentBuild</td>
-                <td>$content['CurrentBuild']</td>
-            </tr>
-            <tr>
-                <td>BuildLabEx</td>
-                <td>$content['BuildLabEx']</td>
+                <td>IP地址</td>
+                <td>$content['Ipaddr']</td>
             </tr>
         </table>
     </div>

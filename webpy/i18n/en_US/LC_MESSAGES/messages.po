@@ -1,0 +1,29 @@
+msgid "page"
+msgstr "主页"
+
+msgid "manager_system"
+msgstr "管理系统"
+
+msgid "home_page"
+msgstr "首页"
+
+msgid "administrator"
+msgstr "管理员"
+
+msgid "change_password"
+msgstr "修改密码"
+
+msgid "exit"
+msgstr "退出"
+
+msgid "help"
+msgstr "帮助"
+
+msgid "product_information"
+msgstr "产品信息"
+
+msgid "set_time"
+msgstr "设置时间"
+
+msgid "language"
+msgstr "语言"
