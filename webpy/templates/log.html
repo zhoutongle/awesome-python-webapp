@@ -1,34 +1,58 @@
-<table id="log">
+$def with(content)
+
+<table id="log_table">
     <thead>
-        <th>时间</th>
-        <th>事件</th>
+        <th style="width:10%"><input type="checkbox" onClick="check_all(this)"></th>
+        <th style="width:20%">$_('time')</th>
+        <th style="width:80%">$_('event')</th>
     </thead>
     <tbody>
-        <tr>
-            <td>2018-6-22</td>
-            <td>过生日</td>
-        </tr>
-        <tr>
-            <td>2018-6-22</td>
-            <td>过生日</td>
-        </tr>
-        <tr>
-            <td>2018-6-22</td>
-            <td>过生日</td>
-        </tr>
+        $for info in content:
+            <tr>
+                <td><input type="checkbox" class="oper"></td>
+                <td>$info['time']</td>
+                <td>$info['message']</td>
+            </tr>
     </tbody>
 </table>
 
 <script>
     $(ELT)(function(){
-        $(ELT)("#log").DataTable({
+        $(ELT)("#log_table").DataTable({
             "bSort": true,
             "bStateSave": true,
             "bJQueryUI": true,
             "sPaginationType": "full_numbers",
             "oLanguage": {
                 "sUrl": "/static/js/temp/datatable_ZH"
-            }
+            },
+            "aoColumnDefs": [{
+                "bSortable": false,
+                "aTargets": [0, 2]
+            }]
         });
     });
+    function check_num(obj){
+        var selectObj = $(ELT)(obj);
+        if(selectObj.attr("checked")){
+            selectObj.parent().parent().addClass('selected');
+        }else{
+            selectObj.parent().parent().removeClass('selected');
+        }
+    }
+    function check_all(this_table){
+        var tableObj = $(ELT)("#log_table").DataTable();
+        var rowObj = tableObj.rows().nodes();
+        for(var i = 0;i < rowObj.length;i++){
+            var nodeObj = $(ELT)(rowObj[i]);
+            var statusObj = nodeObj.find('.oper');
+            if(this_table.checked){
+                nodeObj.addClass('selected');
+                statusObj.attr("checked", true);
+            }else{
+                nodeObj.removeClass('selected');
+                statusObj.attr("checked", false);
+            }
+        }
+    }
 </script>

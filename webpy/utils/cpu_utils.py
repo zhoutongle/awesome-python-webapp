@@ -3,6 +3,10 @@
 import psutil
 import datetime
 import simplejson
+import os
+from time import sleep
+
+sleep_time = 20
 #cpu = {'user' : 0, 'system' : 0, 'idle' : 0, 'percent' : 0}  
 mem = {'total' : 0, 'avaiable' : 0, 'percent' : 0, 'used' : 0, 'free' : 0}  
   
@@ -60,24 +64,68 @@ def get_mem_info():
     return mem
 
 #合并信息
-def get_cpu_mem_info():
-    info = []
-    temp = {}
-    temp['time'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    temp['cpu_percent'] = psutil.cpu_percent(interval=2)
-    mem_info = psutil.virtual_memory()
-    temp['mem_percent'] = mem_info.percent
-    with open("F:\\awesome-python-webapp\\webpy\\config\\cpu_mem.txt", "r") as  f:
-        a = f.read()
-    if a:
-        info = eval(a)
-        if len(info) > 30:
-            info = info[len(info)-30:]
-    info.append(temp)
-    with open("F:\\awesome-python-webapp\\webpy\\config\\cpu_mem.txt", "w") as  f:
-        f.write("%s"%info)
-    info.append(temp)
-    return info
+def get_cpu_mem_info(queue):
+    while True:
+        info = []
+        temp = {}
+        warn_info = []
+        warn_temp = {}
+        
+        #获取CPU和内存信息
+        time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        cpu_percent = psutil.cpu_percent(interval=2)
+        mem_info = psutil.virtual_memory()
+        mem_percent = mem_info.percent
+        temp['time'] = time
+        temp['cpu_percent'] = cpu_percent
+        temp['mem_percent'] = mem_percent
+        
+        #判断cpu使用率是否达到报警级别， 如果可以组装报警信息
+        if cpu_percent > 90:
+            warn_temp['time'] = time
+            warn_temp['level'] = "warn"
+            warn_temp['serial'] = "1001"
+            warn_temp['message'] = "Cpu usage is too hight, cpu usage reached " + str(cpu_percent) + "%."
+        
+        if warn_temp:
+            queue.put(warn_temp)
+            # with open("F:\\awesome-python-webapp\\webpy\\data\\warn_info.txt", "r") as f:
+                # file_content = f.read()
+                # if file_content:
+                    # warn_info = eval(file_content)
+                # warn_info.append(warn_temp)
+            # with open("F:\\awesome-python-webapp\\webpy\\data\\warn_info.txt", "w") as f:
+                # f.write("%s" % warn_info)
+
+        #判断内存使用率是否达到报警级别， 如果可以组装报警信息
+        warn_temp = []
+        if mem_percent > 90:
+            warn_temp['time'] = time
+            warn_temp['level'] = "warn"
+            warn_temp['serial'] = "1002"
+            warn_temp['message'] = "Memory usage is too hight, memory usage reached " + str(mem_percent) + "%."
+        
+        if warn_temp:
+            queue.put(warn_temp)
+            # with open("F:\\awesome-python-webapp\\webpy\\data\\warn_info.txt", "r") as f:
+                # file_content = f.read()
+                # if file_content:
+                    # warn_info = eval(file_content)
+                # warn_info.append(warn_temp)
+            # with open("F:\\awesome-python-webapp\\webpy\\data\\warn_info.txt", "w") as f:
+                # f.write("%s" % warn_info)
+        
+        #把信息存到文件里
+        with open("F:\\awesome-python-webapp\\webpy\\data\\cpu_mem.txt", "r") as  f:
+            file_content = f.read()
+            if file_content:
+                info = eval(file_content)
+            if len(info) > 30:
+                info = info[len(info)-30:]
+            info.append(temp)
+        with open("F:\\awesome-python-webapp\\webpy\\data\\cpu_mem.txt", "w") as  f:
+            f.write("%s" % info)
+        sleep(sleep_time)
        
 #获取磁盘  
 def get_disk_info():

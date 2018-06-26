@@ -14,46 +14,6 @@ body{
     min-width:1000px;
     background-color:#FFF;
 }
-/*****************************************/
-
-table{
-    width:100%;
-    line-height:25px;
-}
-table thead{
-    background:#DFEFFC url(../image/ui-bg_glass_85_dfeffc_1x400.png) repeat-x scroll 50% 50%;
-}
-table caption{
-    padding-left:15px;
-    font-weight:bold;
-    font-size:14px;
-    text-align:left;
-    background:#DFEFFC url(../image/ui-bg_glass_85_dfeffc_1x400.png) repeat-x scroll 50% 50%;
-}
-tr{
-    font-size:12px;
-    text-align:left;
-}
-td,th{
-    padding-left:15px;
-    padding-right:10px;
-}
-td,table.datatable th{
-    border:1px solid #DFEFFC;
-}
-table.datatable td{
-    word-break:break-all;
-}
-td.err{
-    color:#FF0000;
-}
-table.details td{
-    border:0;
-}
-table.datatable{
-    border-top:0;
-    border-bottom:0;
-}
 
 /***********************************************************/
 #main-nav {
@@ -133,4 +93,51 @@ h2{
     text-transform: uppercase;
     color:#fff;
     background: #2971A7;
+}
+/*****************************datatable的样式************************************************/
+table {
+    width: 100%;
+    line-height: 25px
+}
+table thead{
+    background-color: #DFEFFC url(image/ui-bg_glass_85_dfeffc_1x400.png) repeat-x scroll 50% 50%
+}
+table caption{
+    padding-left:15px;
+    font-weight:bold;
+    font-size:14px;
+    text-align:left;
+    background:#DFEFFC url(image/ui-bg_glass_85_dfeffc_1x400.png) repeat-x scroll 50% 50%;
+}
+tr{
+    font-size:12px;
+    text-align:left;
+}
+td,th{
+    padding-left:15px;
+    padding-right:10px;
+}
+td,table.datatable th{
+    border:1px solid #DFEFFC;
+}
+table.datatable td{
+    word-break:break-all;
+}
+td.err{
+    color:#FF0000;
+}
+table.details td{
+    border:0;
+}
+table.datatable{
+    border-top:0;
+    border-bottom:0;
+}
+#log select{
+    width:60px;
+}
+#log tr td{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

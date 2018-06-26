@@ -2,6 +2,7 @@ import web
 from base import *
 import simplejson
 import datetime
+import subprocess
 
 currpath = os.path.join(os.getcwd(), os.path.dirname(__file__))
 if not currpath in sys.path:
@@ -13,6 +14,7 @@ if not utilspath in sys.path:
 
 from system_utils import *
 from cpu_utils import *
+from notify_utils import *
 
 urls = (
     '/', 'index',
@@ -72,7 +74,7 @@ def custom_gettext(string):
 #config template
 web.template.Template.globals['ELT'] = '$'
 web.template.Template.globals['_'] = custom_gettext
-
+_ = custom_gettext
 
 web.config.debug = False
 session = web.session.Session(app, web.session.DiskStore('session'))
@@ -129,14 +131,30 @@ class getcpuinfo:
         
 class getcpuinfoa:
     def GET(self):
-        content = get_cpu_mem_info()
+        #content = get_cpu_mem_info()
+        content = []
+        with open("F:\\awesome-python-webapp\\webpy\\data\\cpu_mem.txt", "r") as  f:
+            file_content = f.read()
+        if file_content:
+            content = eval(file_content)
+        if len(content) > 30:
+            content = content[len(content)-30:]
         return simplejson.dumps(content)
 
 class getlog:
     def GET(self):
-        return render.log()
+        content = []
+        with open("F:\\awesome-python-webapp\\webpy\\data\\warn_info.txt", "r") as f:
+            content = f.read()
+            if content:
+                content = eval(content)
+            for sub in content:
+               notify_translation(sub)
+        return render.log(content)
         
 if __name__ == "__main__":
+    subprocess.Popen('python F:\\awesome-python-webapp\\webpy\\utils\\monitor_reporter.py >> /dev/null 2>&1')
     web.internalerror = web.debugerror
     app.debug = True
     app.run()
+    

@@ -28,3 +28,15 @@ msgstr "设置时间"
 
 msgid "language"
 msgstr "语言"
+
+msgid "time"
+msgstr "时间"
+
+msgid "event"
+msgstr "事件"
+
+msgid "Memory usage is too hight, memory usage reached"
+msgstr "内存使用率过高，使用率达到"
+
+msgid "Cpu usage is too hight, cpu usage reached"
+msgstr "cpu使用率过高，使用率达到"
