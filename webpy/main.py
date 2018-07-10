@@ -1,4 +1,5 @@
 import web
+import os
 from base import *
 import simplejson
 import datetime
@@ -18,6 +19,10 @@ from notify_utils import *
 from mp3_utils import *
 from read_utils import *
 from get_models import *
+
+MONITOR_PATH = currpath + "\\utils\\monitor_reporter.py"
+CPU_MEM_PATH = currpath + "\\data\\cpu_mem.txt"
+WARN_INFO_PATH = currpath + "\\data\\warn_info.txt"
 
 urls = (
     '/', 'index',
@@ -51,7 +56,7 @@ def get_translations(lang='zh_CN'):
     else:
         try:
             translation = gettext.translation('messages',localedir,languages=[lang])
-        except Exception,e:
+        except Exception as e:
             translation = gettext.NullTranslations()
     return translation
     
@@ -101,7 +106,7 @@ class login:
         return render.login()
     def POST(self):
         params = web.input()
-        print params
+        print(params)
         username = params['username']
         password = params['password']
         if username == "Admin" and password == "123456":
@@ -140,7 +145,7 @@ class getcpuinfoa:
     def GET(self):
         #content = get_cpu_mem_info()
         content = []
-        with open("F:\\awesome-python-webapp\\webpy\\data\\cpu_mem.txt", "r") as  f:
+        with open(CPU_MEM_PATH, "r") as  f:
             file_content = f.read()
         if file_content:
             content = eval(file_content)
@@ -151,7 +156,7 @@ class getcpuinfoa:
 class getlog:
     def GET(self):
         content = []
-        with open("F:\\awesome-python-webapp\\webpy\\data\\warn_info.txt", "r") as f:
+        with open(WARN_INFO_PATH, "r") as f:
             content = f.read()
             if content:
                 content = eval(content)
@@ -181,7 +186,8 @@ class getmovie:
         return render.getmovie(content)
         
 if __name__ == "__main__":
-    subprocess.Popen('python F:\\awesome-python-webapp\\webpy\\utils\\monitor_reporter.py >> /dev/null 2>&1')
+
+    subprocess.Popen('python %s >> /dev/null 2>&1' % MONITOR_PATH)
     web.internalerror = web.debugerror
     app.debug = True
     app.run()

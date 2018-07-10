@@ -13,15 +13,17 @@ import time
 #import fcntl
 from time import ctime,sleep
 from read_utils import say_word
+from cpu_utils import *
 
 currpath = os.path.join(os.getcwd(), os.path.dirname(__file__))
 if not currpath in sys.path:
     sys.path.append(currpath)
-    
+
 utilspath = os.path.join(currpath, 'utils')
 if not utilspath in sys.path:
     sys.path.append(utilspath)
-from cpu_utils import *
+
+WARN_INFO_PATH = "\\".join(currpath.split("\\")[:-2]) + "\\data\\warn_info.txt"
 
 def start_process():
     warn_info = []
@@ -41,12 +43,12 @@ def start_process():
         try:
             monitor_info = monitor_info_queue.get()
             if monitor_info:
-                with open("F:\\awesome-python-webapp\\webpy\\data\\warn_info.txt", "r") as f:
+                with open(WARN_INFO_PATH, "r") as f:
                     file_content = f.read()
                     if file_content:
                         warn_info = eval(file_content)
                     warn_info.append(monitor_info)
-                with open("F:\\awesome-python-webapp\\webpy\\data\\warn_info.txt", "w") as f:
+                with open(WARN_INFO_PATH, "w") as f:
                     f.write("%s" % warn_info)
                 say_word(monitor_info['message'])
         except:
@@ -55,5 +57,5 @@ def start_process():
     for th in threads:
         th.join()
         
-if __name__ == '__main__':
-    start_process()
+#if __name__ == '__main__':
+    #start_process()
