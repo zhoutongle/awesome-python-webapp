@@ -102,6 +102,27 @@
                                 <li><a href="javascript:get_cpu_usage()"><i class="glyphicon glyphicon-leaf"></i>内存使用率</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#voice" class="nav-header collapsed" data-toggle="collapse">
+                                <i class="glyphicon glyphicon-headphones"></i>
+                                语音
+                                <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul id="voice" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                                <li><a href="javascript:play_music()"><i class="glyphicon glyphicon-music"></i>音乐</a></li>
+                                <li><a href="javascript:read_book()"><i class="glyphicon glyphicon-book"></i>阅读</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#search" class="nav-header collapsed" data-toggle="collapse">
+                                <i class="glyphicon glyphicon-search"></i>
+                                搜索
+                                <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul id="search" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                                <li><a href="javascript:get_movie()"><i class="glyphicon glyphicon-certificate"></i>豆瓣</a></li>
+                            </ul>
+                        </li>
                         <li><a href="javascript:get_info()"><i class="glyphicon glyphicon-fire"></i>关于系统</a></li>
                     </ul>
                 </div>
@@ -313,6 +334,66 @@
             },
             error:function(){
                 $$('#loaddialog').dialog('close');
+                custAlert("操作失败", "获得系统信息失败！")
+            }
+        });
+    }
+    function play_music(){
+        var url = "/playmusic?" + new Date().getTime();
+        $(ELT).ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'html',
+            beforeSend: function(){
+                custLoading("正在加载数据...");
+            },
+            success:function(text){
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
+            },
+            error:function(){
+                $(ELT)('#loaddialog').dialog('close');
+                custAlert("操作失败", "获得系统信息失败！")
+            }
+        });
+    }
+    function read_book(){
+        var url = "/readbook?" + new Date().getTime();
+        $(ELT).ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'html',
+            beforeSend: function(){
+                custLoading("正在加载数据...");
+            },
+            success:function(text){
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
+            },
+            error:function(){
+                $(ELT)('#loaddialog').dialog('close');
+                custAlert("操作失败", "获得系统信息失败！")
+            }
+        });
+    }
+    function get_movie(){
+        var url = "/getmovie?" + new Date().getTime();
+        $(ELT).ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'html',
+            beforeSend: function(){
+                custLoading("正在加载数据...");
+            },
+            success:function(text){
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
+            },
+            error:function(){
+                $(ELT)('#loaddialog').dialog('close');
                 custAlert("操作失败", "获得系统信息失败！")
             }
         });

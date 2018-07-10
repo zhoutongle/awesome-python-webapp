@@ -1,0 +1,40 @@
+$def with(content)
+
+<form>
+    <ul>
+        <li>&nbsp;</li>
+        <li>
+            <div class="alert alert-info">信息！将需要朗读的信息输入到下面！</div>
+        </li>
+        <li>&nbsp;</li>
+        <li>
+            <textarea rows="5" cols="55" style="resize: none;" class="ui-widget-content ui-corner-all"  value="" placeholder="输入需要阅读的内容"></textarea>
+        </li>
+        <li>&nbsp;</li>
+        <li>
+            <button onclick="read()">朗读</button>
+        </li>
+    </ul>
+</form>
+<script>
+    function read(){
+        var url = "/readbook?" + new Date().getTime();
+        $(ELT).ajax({
+            url : url,
+            type : 'POST',
+            async: false,
+            data: "info=" + "123",
+            dataType : 'text',
+            success:function(text){
+                if(text == 0){
+                    alert("success!!!");
+                }else{
+                    alert("1error!!!");
+                }
+            },
+            error:function(){
+                alert("2error!!!");
+            }
+        });
+    }
+</script>

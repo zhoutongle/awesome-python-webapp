@@ -1,0 +1,65 @@
+$def with(content)
+
+<table id="movie_table">
+    <thead>
+        <th style="width:10%"><input type="checkbox" onClick="check_all(this)"></th>
+        <th>序号</th>
+        <th>电影名称</th>
+        <th>电影信息</th>
+        <th>评分</th>
+        <th>参评数</th>
+        <th>描述</th>
+    </thead>
+    <tbody>
+        $for sub in content:
+            <tr>
+                <td><input type="checkbox" class="oper"></td>
+                <td>$sub['index']</td>
+                <td>$sub['movie_name']</td>
+                <td>$sub['other']</td>
+                <td>$sub['grade']</td>
+                <td>$sub['number']</td>
+                <td>$sub['describe']</td>
+            </tr>
+    </tbody>
+</table>
+<script>
+    $(ELT)(function(){
+        $(ELT)("#movie_table").DataTable({
+            "bSort": true,
+            "bStateSave": true,
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sUrl": "/static/js/temp/datatable_ZH"
+            },
+            "aoColumnDefs": [{
+                "bSortable": false,
+                "aTargets": [0, 2]
+            }]
+        });
+    });
+    function check_num(obj){
+        var selectObj = $(ELT)(obj);
+        if(selectObj.attr("checked")){
+            selectObj.parent().parent().addClass('selected');
+        }else{
+            selectObj.parent().parent().removeClass('selected');
+        }
+    }
+    function check_all(this_table){
+        var tableObj = $(ELT)("#log_table").DataTable();
+        var rowObj = tableObj.rows().nodes();
+        for(var i = 0;i < rowObj.length;i++){
+            var nodeObj = $(ELT)(rowObj[i]);
+            var statusObj = nodeObj.find('.oper');
+            if(this_table.checked){
+                nodeObj.addClass('selected');
+                statusObj.attr("checked", true);
+            }else{
+                nodeObj.removeClass('selected');
+                statusObj.attr("checked", false);
+            }
+        }
+    }
+</script>

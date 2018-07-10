@@ -186,21 +186,28 @@ def get_system_info():
         try:
             reg_key = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion")
             if reg_key:
-                ProductName  = _winreg.QueryValueEx(reg_key, "ProductName")[0] or None
-                EditionId    = _winreg.QueryValueEx(reg_key, "EditionId")[0] or None
-                ReleaseId    = _winreg.QueryValueEx(reg_key, "ReleaseId")[0] or None
-                CurrentBuild = _winreg.QueryValueEx(reg_key, "CurrentBuild")[0] or None
-                BuildLabEx   = _winreg.QueryValueEx(reg_key, "BuildLabEx")[0][:9] or None
-                system_info['ProductName'] = ProductName
-                system_info['EditionId'] = EditionId
-                system_info['ReleaseId'] = ReleaseId
-                system_info['CurrentBuild'] = CurrentBuild
-                system_info['BuildLabEx'] = BuildLabEx
-                system_info['Ipaddr'] = getLocalIP()[1]
+                # ProductName  = _winreg.QueryValueEx(reg_key, "ProductName")[0] or None
+                # EditionId    = _winreg.QueryValueEx(reg_key, "EditionId")[0] or None
+                # ReleaseId    = _winreg.QueryValueEx(reg_key, "ReleaseId")[0] or None
+                # CurrentBuild = _winreg.QueryValueEx(reg_key, "CurrentBuild")[0] or None
+                # BuildLabEx   = _winreg.QueryValueEx(reg_key, "BuildLabEx")[0][:9] or None
+                # system_info['ProductName'] = ProductName
+                # system_info['EditionId'] = EditionId
+                # system_info['ReleaseId'] = ReleaseId
+                # system_info['CurrentBuild'] = CurrentBuild
+                # system_info['BuildLabEx'] = BuildLabEx
+                # system_info['Ipaddr'] = getLocalIP()[1]
                 #print (ProductName, EditionId, ReleaseId, CurrentBuild, BuildLabEx)
+                system_info['system_name'] = get_platform()
+                system_info['system_version'] = get_version()
+                system_info['system_sum'] = get_architecture()
+                system_info['computer_type'] = get_machine()
+                system_info['computer_network_name'] = get_node()
+                system_info['computer_cpu_info'] = get_processor()
+                system_info['system_type'] = get_system()
         except Exception as e:
             print e.message.decode(DEFAULT_LOCALE_ENCODING)
-       
+
      
     if linux:
        system_info['system_name'] = get_platform()

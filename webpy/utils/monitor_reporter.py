@@ -12,6 +12,7 @@ import traceback
 import time
 #import fcntl
 from time import ctime,sleep
+from read_utils import say_word
 
 currpath = os.path.join(os.getcwd(), os.path.dirname(__file__))
 if not currpath in sys.path:
@@ -47,6 +48,7 @@ def start_process():
                     warn_info.append(monitor_info)
                 with open("F:\\awesome-python-webapp\\webpy\\data\\warn_info.txt", "w") as f:
                     f.write("%s" % warn_info)
+                say_word(monitor_info['message'])
         except:
             print traceback.format_exc()
     

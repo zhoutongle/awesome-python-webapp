@@ -15,6 +15,9 @@ if not utilspath in sys.path:
 from system_utils import *
 from cpu_utils import *
 from notify_utils import *
+from mp3_utils import *
+from read_utils import *
+from get_models import *
 
 urls = (
     '/', 'index',
@@ -27,7 +30,10 @@ urls = (
     '/geticoninfo', 'geticoninfo',
     '/getcpuinfo', 'getcpuinfo',
     '/getcpuinfoa', 'getcpuinfoa',
-    '/getlog', 'getlog'
+    '/getlog', 'getlog',
+    '/playmusic', 'playmusic',
+    '/readbook', 'readbook',
+    '/getmovie', 'getmovie'
 )
 
 app = web.application(urls, globals())
@@ -87,6 +93,7 @@ class index:
 class info:
     def GET(self):
         content = get_system_info()
+        print(content)
         return render.info(content)
 
 class login:
@@ -151,6 +158,27 @@ class getlog:
             for sub in content:
                notify_translation(sub)
         return render.log(content)
+
+class playmusic:
+    def GET(self):
+        content = []
+        return render.playmusic(content)
+    def POST(self):
+        params = web.input()
+        flag = params['flag']
+        play_music(flag)
+        
+class readbook:
+    def GET(self):
+        content = []
+        return render.readbook(content)
+        
+class getmovie:
+    def GET(self):
+        movie = MOVIE()
+        content = movie.getPageItems()
+        content = eval(content)
+        return render.getmovie(content)
         
 if __name__ == "__main__":
     subprocess.Popen('python F:\\awesome-python-webapp\\webpy\\utils\\monitor_reporter.py >> /dev/null 2>&1')

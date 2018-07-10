@@ -141,3 +141,55 @@ table.datatable{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+ul li{
+    list-style-type:none;
+}
+
+/*************toolbar操作栏的样式************************/
+#toolbar ul li{
+    position:relative;
+    float: left;
+    display: inline;
+}
+#toolbar ul li ul{
+    position:absolute;
+    top:34px;
+}
+#toolbar ul li ul{
+    position:absolute;
+    top:34px;
+    left:0;
+    display: none;
+    width:170px;
+    background-color:#DFEFFC;
+    padding-bottom:5px;
+    margin-top:-1px;
+    z-index:1004;
+}
+#toolbar ul li ul li{
+    width:100%;
+}
+#toolbar ul li ul li a{
+    display:inline-block;
+    padding:5px 0 5px 15px;
+    color: #2E6E9E;
+}
+#toolbar ul li ul li a:hover{
+    text-decoration:underline;
+}
+#toolbar .toolbar-menu{
+    float: left;
+    display: block;
+    height: 31px;
+    margin: 1px 6px;
+    padding-left: 9px;
+    color: #2E6E9E;
+    font-weight:bold;
+}
+.toolbar-menu-span{
+    display: block;
+    line-height: 31px; /* CHANGE THIS VALUE ACCORDING TO BUTTONG HEIGHT */
+}
+.toolbar-menu:hover span,.ui-cust-button:hover span{
+    text-decoration:underline;
+}

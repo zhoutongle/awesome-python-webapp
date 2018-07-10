@@ -6,20 +6,32 @@ $def with(content)
         <h2><span>基础信息</span></h2>    
         <table class="stripMe" id="vitelsTable" cellpadding="0">        
             <tr>
-                <td>windows版本</td>
-                <td>$content['ProductName']</td>
+                <td>操作系统名称及版本号</td>
+                <td>$content['system_name']</td>
             </tr>
             <tr>
-                <td>发行版本</td>
-                <td>版本 $content['ReleaseId']</td>
+                <td>操作系统版本号</td>
+                <td>$content['system_version']</td>
             </tr>
             <tr>
-                <td>内核版本</td>
-                <td>OS 内部版本 $content['BuildLabEx']</td>
+                <td>操作系统的位数</td>
+                <td>$content['system_sum'][0] $content['system_sum'][1]</td>
             </tr>
             <tr>
-                <td>IP地址</td>
-                <td>$content['Ipaddr']</td>
+                <td>计算机类型</td>
+                <td>$content['computer_type']</td>
+            </tr>
+            <tr>
+                <td>计算机的网络名称</td>
+                <td>$content['computer_network_name']</td>
+            </tr>
+            <tr>
+                <td>计算机处理器信息</td>
+                <td>$content['computer_cpu_info']</td>
+            </tr>
+            <tr>
+                <td>操作系统类型</td>
+                <td>$content['system_type']</td>
             </tr>
         </table>
     </div>
