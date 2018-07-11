@@ -42,15 +42,15 @@ $def with(content)
     }
     function check_all(this_table){
         var tableObj = $(ELT)("#log_table").DataTable();
-        var rowObj = tableObj.rows().nodes();
-        for(var i = 0;i < rowObj.length;i++){
-            var nodeObj = $(ELT)(rowObj[i]);
-            var statusObj = nodeObj.find('.oper');
+        var rowNode = tableObj.rows().nodes();
+        for(var i = 0;i < rowNode.length;i++){
+            var rowObj = $(ELT)(rowObj[i]);
+            var statusObj = rowObj.find('.oper');
             if(this_table.checked){
-                nodeObj.addClass('selected');
+                rowObj.addClass('selected');
                 statusObj.attr("checked", true);
             }else{
-                nodeObj.removeClass('selected');
+                rowObj.removeClass('selected');
                 statusObj.attr("checked", false);
             }
         }
