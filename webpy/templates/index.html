@@ -4,7 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html;" charset="utf-8"/>
 <!-- Bootstrap -->
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 <link href="static/css/dataTable.css" rel="stylesheet" type="text/css">
@@ -184,14 +183,14 @@
             width:600,
             title:"信息",
             open:function(){
-                custLoading("正在加载数据...");                                                                 
-            },                                                                                                         
-            close:function(){                                                                                          
-                $(ELT)(this).remove();                                                                                 
-            },                                                                                                         
-            buttons:{                                                                                                  
-                "确定": function() {                                                                          
-                    dirmanage.dialog("close");                                                                     
+                custLoading("正在加载数据...");
+            },
+            close:function(){
+                $(ELT)(this).remove();
+            },
+            buttons:{
+                "确定": function() {
+                    dirmanage.dialog("close");
                 }
             }
         });
@@ -225,53 +224,53 @@
         var addmanage = $$('<div id="modifycontentdialog" >').appendTo('body');
         modifymanage.dialog({
             bgiframe: true,
-            modal: true,                                                                                               
-            autoOpen:false,                                                                                            
-            resizable:false,                                                                                           
+            modal: true,
+            autoOpen:false,
+            resizable:false,
             width:600,
             title:"信息",
-            open:function(){                                                                                           
-                custLoading("正在加载数据...");                                                                 
-            },                                                                                                         
-            close:function(){                                                                                          
-                $(ELT)(this).remove();                                                                                 
-            },                                                                                                         
-            buttons:{                                                                                                  
-                "确定": function() {                                                                          
-                    modifymanage.dialog("close");                                                                     
-                }                                                                                                      
-            }                                                                                                          
-        });                                                                                                            
-        $(ELT)("#modifycontentdialog").load(url,'',function(){                                                             
-            $(ELT)('#loaddialog').dialog('close');                                                                     
-        });                                                                                                            
-        $(ELT)("#modifycontentdialog").dialog("open");                                                                    
+            open:function(){
+                custLoading("正在加载数据...");
+            },
+            close:function(){
+                $(ELT)(this).remove();
+            },
+            buttons:{
+                "确定": function() {
+                    modifymanage.dialog("close");
+                }
+            }
+        });
+        $(ELT)("#modifycontentdialog").load(url,'',function(){
+            $(ELT)('#loaddialog').dialog('close');
+        });
+        $(ELT)("#modifycontentdialog").dialog("open");
     }
     function settime(){
-        var url = "/settime?" + new Date().getTime();  
-        var settimemanage = $$('<div id="settimedialog" >').appendTo('body');      
-        settimemanage.dialog({                                                                            
-            bgiframe: true,                                                                                            
-            modal: true,                                                                                               
-            autoOpen: false,                                                                                            
-            resizable: false,                                                                                           
+        var url = "/settime?" + new Date().getTime();
+        var settimemanage = $$('<div id="settimedialog" >').appendTo('body');
+        settimemanage.dialog({
+            bgiframe: true,
+            modal: true,
+            autoOpen: false,
+            resizable: false,
             width:600,
             title:"设置系统时间",
-            open:function(){                                                                                           
-                custLoading("Loading Data ...");                                                                 
-            },                                                                                                         
-            close:function(){                                                                                          
-                $(ELT)(this).remove();                                                                                 
-            },                                                                                                         
-            buttons:{                                                                                                  
-                "确定": function() {                                                                          
-                    settimemanage.dialog("close");                                                                     
-                }                                                                                                      
-            }                                                                                                          
-        });                                                                                                            
-        $(ELT)("#settimedialog").load(url,'',function(){                                                             
-            $(ELT)('#loaddialog').dialog('close');                                                                     
-        });                                                                                                            
+            open:function(){
+                custLoading("Loading Data ...");
+            },
+            close:function(){
+                $(ELT)(this).remove();
+            },
+            buttons:{
+                "确定": function() {
+                    settimemanage.dialog("close");
+                }
+            }
+        });
+        $(ELT)("#settimedialog").load(url,'',function(){
+            $(ELT)('#loaddialog').dialog('close');
+        });
         $(ELT)("#settimedialog").dialog("open");
     }
     function logout(){

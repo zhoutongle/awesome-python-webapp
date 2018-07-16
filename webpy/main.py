@@ -92,27 +92,25 @@ session = web.session.Session(app, web.session.DiskStore('session'))
 
 class index:
     def GET(self):
-        content = {"q":"1", "w":"2"}
         return render.index()
 
 class info:
     def GET(self):
         content = get_system_info()
-        print(content)
         return render.info(content)
 
 class login:
     def GET(self):
-        return render.login()
+        return render.login([])
     def POST(self):
         params = web.input()
         print(params)
         username = params['username']
         password = params['password']
-        if username == "Admin" and password == "123456":
-            raise web.seeother('/')
+        if username == "admin" and password == "123456":
+            return 0
         else:
-            raise web.seeother('/login')
+            return 1
 
 class logout:
     def GET(self):

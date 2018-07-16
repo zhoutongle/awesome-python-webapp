@@ -99,3 +99,22 @@ function custLoading(message){
     //$('loaddialog .ui-dialog-titlebar').hide();
 	loaddialog.siblings('div.ui-dialog-titlebar').remove();
 }
+//create cookie
+function getCookie(p_value){
+    if (document.cookie.length>0){
+        c_start=document.cookie.indexOf(p_value + "=");
+        if (c_start!=-1){
+            c_start=c_start + p_value.length+1;
+            c_end=document.cookie.indexOf(";",c_start);
+            if (c_end==-1) c_end=document.cookie.length;
+            return unescape(document.cookie.substring(c_start,c_end));
+        }
+    }
+    return "";
+}
+
+function setCookie(p_value,value,expiretime){
+    var exdate=new Date();
+    exdate.setDate(exdate.getTime()+expiretime);
+    document.cookie=p_value+ "=" +escape(value)+((expiretime==null) ? "" : ";expires="+exdate.toUTCString());
+}

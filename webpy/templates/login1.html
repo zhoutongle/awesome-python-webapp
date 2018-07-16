@@ -290,12 +290,12 @@ function check(){
 function login(){
     var username = $$("#username").val();
     var password = $$("#password").val();
-    $$.ajax({
+    $(ELT).ajax({
         url : '/login?' + new Date().getTime(),
         type : 'POST',
         data : "&username=" + username + "&password=" + password,
         async: false,
-        dataType : 'json',
+        dataType : 'JSON',
         success:function(text){
             if(text == 0){
                 alert("000");
