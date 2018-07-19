@@ -1,3 +1,5 @@
+$def with(content)
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -22,7 +24,7 @@
 <script src="static/js/jquery.dataTables.js"></script>
 <script src="static/js/echarts.js"></script>
 <script src="static/js/iconPicker.js"></script>
-<title>$_("manager_system")</title>
+<title>$_("manager system")</title>
 
 <script type="text/JavaScript">
 </script>
@@ -31,31 +33,31 @@
     <div id="neversike" style="margin-top:40px;background:#adadad;">
         <!--p>基本的胶囊式导航菜单</p-->
         <ul class="container nav nav-pills nav-left navbar-fixed-top" style="width:998px">
-            <li><a href="/" onclick="">$_("home_page")</a></li>
+            <li><a href="/" onclick="">$_("home page")</a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">$_('administrator')<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" onclick="custAlert('123','123')">$_('change_password')</a></li>
+                    <li><a href="javascript:void(0)" onclick="custAlert('123','123')">$_('change password')</a></li>
                     <li><a href="/logout" onclick="">$_('exit')</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" >$_('help')<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" onclick="info()">$_('product_information')</a></li> 
+                    <li><a href="javascript:void(0)" onclick="info()">$_('product information')</a></li> 
                 </ul>
             </li>
-            <li><a href="javascript:void(0)" onclick="settime()">$_('set_time')</a></li>
+            <li><a href="javascript:void(0)" onclick="settime()">$_('set time')</a></li>
             <li class="dropdown pull-right">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">$_('language')<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li> 
-                        <a href="#">中文</a>
+                        <a href="#">$_('Chinese')</a>
                     </li>
                     <li class="divider">
                     </li>
                     <li>
-                        <a href="#">英文</a>
+                        <a href="#">$_('English')</a>
                     </li>
                 </ul>
             </li>
@@ -107,58 +109,55 @@
                         <li class="active">
                             <a href="#">
                                 <i class="glyphicon glyphicon-th-large"></i>
-                                首页 
+                                $_("home page")
                             </a>
                         </li>
                         <li>
                             <a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse">
                                 <i class="glyphicon glyphicon-cog"></i>
-                                系统管理
+                                $_('manager system')
                                 <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                                <li><a href="#"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
-                                <li><a href="javascript:get_log()"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>
+                                <li><a href="javascript:get_user()"><i class="fa fa-user fa-fw"></i>&nbsp; $_("user managerment")</a></li>
+                                <li><a href="#"><i class="fa fa-pencil fa-fw"></i>&nbsp; $_("change password")</a></li>
+                                <li><a href="javascript:get_log()"><i class="fa fa-eye fa-fw"></i>&nbsp; $_('look log')<span class="label label-warning pull-right" id="num"></span></a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:get_icon_info()"><i class="glyphicon glyphicon-credit-card"></i>物料管理 </a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-globe"></i>分发配置<!--span class="label label-warning pull-right">5</span--></a></li>
+                        <li><a href="javascript:get_icon_info()"><i class="fa fa-credit-card-alt fa-fw"></i>&nbsp; $_('material managerment')</a></li>
                         <li>
                             <a href="#charts" class="nav-header collapsed" data-toggle="collapse">
                                 <i class="glyphicon glyphicon-calendar"></i>
-                                图表统计
+                                $_('icon statistics')
                                 <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul id="charts" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                                <li><a href="javascript:get_disk_usage()"><i class="fa fa-area-chart fa-fw"></i>磁盘使用率</a></li>
-                                <li><a href="javascript:get_cpu_usage()"><i class="glyphicon glyphicon-leaf"></i>内存使用率</a></li>
+                                <li><a href="javascript:get_disk_usage()"><i class="fa fa-area-chart fa-fw"></i>&nbsp; $_('disk usage')</a></li>
+                                <li><a href="javascript:get_cpu_usage()"><i class="glyphicon glyphicon-leaf"></i>&nbsp; $_('memory usage')</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="#voice" class="nav-header collapsed" data-toggle="collapse">
                                 <i class="glyphicon glyphicon-headphones"></i>
-                                语音
+                                $_('voice')
                                 <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul id="voice" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                                <li><a href="javascript:play_music()"><i class="glyphicon glyphicon-music"></i>音乐</a></li>
-                                <li><a href="javascript:read_book()"><i class="glyphicon glyphicon-book"></i>阅读</a></li>
+                                <li><a href="javascript:play_music()"><i class="glyphicon glyphicon-music"></i>&nbsp; $_('music')</a></li>
+                                <li><a href="javascript:read_book()"><i class="glyphicon glyphicon-book"></i>&nbsp; $_('reading')</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="#search" class="nav-header collapsed" data-toggle="collapse">
                                 <i class="glyphicon glyphicon-search"></i>
-                                搜索
+                                $_('search')
                                 <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul id="search" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                                <li><a href="javascript:get_movie()"><i class="glyphicon glyphicon-certificate"></i>豆瓣</a></li>
+                                <li><a href="javascript:get_movie()"><i class="glyphicon glyphicon-certificate"></i>&nbsp; $_('dou ban')</a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:get_info()"><i class="glyphicon glyphicon-fire"></i>关于系统</a></li>
+                        <li><a href="javascript:get_info()"><i class="glyphicon glyphicon-fire"></i>&nbsp; $_('about system')</a></li>
                     </ul>
                 </div>
                 <div class="col-md-10">
@@ -172,24 +171,47 @@
 </body>
 </html>
 <script type="text/javascript">
+    $(ELT)(function(){
+        $(ELT)("#num").html("$content");
+    });
+    function get_user(){
+        var url = "/getuser?" + new Date().getTime();
+        $(ELT).ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'html',
+            beforeSend: function(){
+                custLoading("$_('loading data ...')");
+            },
+            success:function(text){
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
+            },
+            error:function(){
+                $(ELT)('#loaddialog').dialog('close');
+                custAlert("$_('operfail')", "$_('failed to get user information')")
+            }
+        });
+    }
     function info(){
         var url = "/info?" + new Date().getTime();
-        var dirmanage = $$('<div id="dirmanagedialog" >').appendTo('body');
+        var dirmanage = $(ELT)('<div id="dirmanagedialog" >').appendTo('body');
         dirmanage.dialog({
             bgiframe: true,
             modal: true,
             autoOpen:false,
             resizable:false,
             width:600,
-            title:"信息",
+            title:"$_('information')",
             open:function(){
-                custLoading("正在加载数据...");
+                custLoading("$_('loading data ...')");
             },
             close:function(){
                 $(ELT)(this).remove();
             },
             buttons:{
-                "确定": function() {
+                "$_('confirm')": function() {
                     dirmanage.dialog("close");
                 }
             }
@@ -207,7 +229,7 @@
             async: false,
             dataType: 'html',
             beforeSend: function(){
-                custLoading("正在加载数据...");
+                custLoading("$_('loading data ...')");
             },
             success:function(text){
                 $(ELT)('#loaddialog').dialog('close');
@@ -215,28 +237,28 @@
             },
             error:function(){
                 $(ELT)('#loaddialog').dialog('close');
-                custAlert("操作失败", "获得系统信息失败！")
+                custAlert("operfail", "$_('failed to get system information')")
             }
         });
     }
     function modify_content(){
-        var url = "modifycontent?" + new Date().getTime();  
-        var addmanage = $$('<div id="modifycontentdialog" >').appendTo('body');
+        var url = "/modifycontent?" + new Date().getTime();  
+        var addmanage = $(ELT)('<div id="modifycontentdialog" >').appendTo('body');
         modifymanage.dialog({
             bgiframe: true,
             modal: true,
             autoOpen:false,
             resizable:false,
             width:600,
-            title:"信息",
+            title:"$_('information')",
             open:function(){
-                custLoading("正在加载数据...");
+                custLoading("$_('loading data ...')");
             },
             close:function(){
                 $(ELT)(this).remove();
             },
             buttons:{
-                "确定": function() {
+                "$_('confirm')": function() {
                     modifymanage.dialog("close");
                 }
             }
@@ -248,22 +270,22 @@
     }
     function settime(){
         var url = "/settime?" + new Date().getTime();
-        var settimemanage = $$('<div id="settimedialog" >').appendTo('body');
+        var settimemanage = $(ELT)('<div id="settimedialog" >').appendTo('body');
         settimemanage.dialog({
             bgiframe: true,
             modal: true,
             autoOpen: false,
             resizable: false,
             width:600,
-            title:"设置系统时间",
+            title:"$_('set system time')",
             open:function(){
-                custLoading("Loading Data ...");
+                custLoading("$_('loading data ...')");
             },
             close:function(){
                 $(ELT)(this).remove();
             },
             buttons:{
-                "确定": function() {
+                "$_('confirm')": function() {
                     settimemanage.dialog("close");
                 }
             }
@@ -301,7 +323,7 @@
             async: false,
             dataType: 'html',
             beforeSend: function(){
-                custLoading("正在加载数据...");
+                custLoading("$_('loading data ...')");
             },
             success:function(text){
                 $(ELT)('#loaddialog').dialog('close');
@@ -309,7 +331,7 @@
             },
             error:function(){
                 $(ELT)('#loaddialog').dialog('close');
-                custAlert("操作失败", "获得系统信息失败！")
+                custAlert("$_('operfail')", "$_('failed to get disk information')")
             }
         });
     }
@@ -321,7 +343,7 @@
             async: false,
             dataType: 'html',
             beforeSend: function(){
-                custLoading("正在加载数据...");
+                custLoading("$_('loading data ...')");
             },
             success:function(text){
                 $(ELT)('#loaddialog').dialog('close');
@@ -329,7 +351,7 @@
             },
             error:function(){
                 $(ELT)('#loaddialog').dialog('close');
-                custAlert("操作失败", "获得系统信息失败！")
+                custAlert("$_('operfail')", "$_('failed to get icon information')")
             }
         });
     }
@@ -341,7 +363,7 @@
             async: false,
             dataType: 'html',
             beforeSend: function(){
-                custLoading("正在加载数据...");
+                custLoading("$_('loading data ...')");
             },
             success:function(text){
                 $(ELT)('#loaddialog').dialog('close');
@@ -349,7 +371,7 @@
             },
             error:function(){
                 $$('#loaddialog').dialog('close');
-                custAlert("操作失败", "获得系统信息失败！")
+                custAlert("$_('operfail')", "$_('failed to get memory information')")
             }
         });
     }
@@ -361,15 +383,15 @@
             async: false,
             dataType: 'html',
             beforeSend: function(){
-                custLoading("正在加载数据...");
+                custLoading("$_('loading data ...')");
             },
             success:function(text){
                 $(ELT)('#loaddialog').dialog('close');
                 $(ELT)("#content").html(text);
             },
             error:function(){
-                $$('#loaddialog').dialog('close');
-                custAlert("操作失败", "获得系统信息失败！")
+                $(ELT)('#loaddialog').dialog('close');
+                custAlert("$_('operfail')", "$_('failed to get log information')")
             }
         });
     }
@@ -381,7 +403,7 @@
             async: false,
             dataType: 'html',
             beforeSend: function(){
-                custLoading("正在加载数据...");
+                custLoading("$_('loading data ...')");
             },
             success:function(text){
                 $(ELT)('#loaddialog').dialog('close');
@@ -389,7 +411,7 @@
             },
             error:function(){
                 $(ELT)('#loaddialog').dialog('close');
-                custAlert("操作失败", "获得系统信息失败！")
+                custAlert("$_('operfail')", "$_('music failed to play')")
             }
         });
     }
@@ -401,7 +423,7 @@
             async: false,
             dataType: 'html',
             beforeSend: function(){
-                custLoading("正在加载数据...");
+                custLoading("$_('loading data ...')");
             },
             success:function(text){
                 $(ELT)('#loaddialog').dialog('close');
@@ -409,7 +431,7 @@
             },
             error:function(){
                 $(ELT)('#loaddialog').dialog('close');
-                custAlert("操作失败", "获得系统信息失败！")
+                custAlert("$_('operfail')", "$_('failure to read text')")
             }
         });
     }
@@ -421,7 +443,7 @@
             async: false,
             dataType: 'html',
             beforeSend: function(){
-                custLoading("正在加载数据...");
+                custLoading("$_('loading data ...')");
             },
             success:function(text){
                 $(ELT)('#loaddialog').dialog('close');
@@ -429,7 +451,7 @@
             },
             error:function(){
                 $(ELT)('#loaddialog').dialog('close');
-                custAlert("操作失败", "获得系统信息失败！")
+                custAlert("$_('operfail')", "$_('failed to get movie information')")
             }
         });
     }

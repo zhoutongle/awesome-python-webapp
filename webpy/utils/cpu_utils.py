@@ -179,24 +179,3 @@ def get_disk_info():
         temp['percent'] = disk_info.percent
         disk.append(temp)
     return disk
-
-if __name__ == '__main__':
-
-    #磁盘名称  
-    disk_id = []  
-    #将每个磁盘的total used free percent 分别存入到相应的list  
-    disk_total = []  
-    disk_used = []  
-    disk_free = []  
-    disk_percent = []    
-
-    get_cpu_info()
-    cpu_status = cpu['percent']  
-    print u"CPU使用率: %s %%" % cpu  
-    get_mem_info()  
-    mem_status = mem['percent']  
-    print u"内存使用率: %s %%" % mem_status      
-    get_disk_info()
-    for i in range(len(disk_id)):  
-        print u'%s盘空闲率: %s %%' % (disk_id[i],100 - disk_percent[i])  
-    #raw_input("Enter enter key to exit

@@ -57,5 +57,5 @@ def start_process():
     for th in threads:
         th.join()
         
-#if __name__ == '__main__':
-    #start_process()
+if __name__ == '__main__':
+    start_process()

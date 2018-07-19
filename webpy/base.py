@@ -33,7 +33,7 @@ def get_translations(lang='zh_CN'):
     else:
         try:
             translation = gettext.translation('messages',localedir,languages=[lang])
-        except Exception,e:
+        except Exception as e:
             translation = gettext.NullTranslations()
     return translation
     
@@ -62,6 +62,18 @@ def custom_gettext(string):
 web.template.Template.globals['ELT'] = '$'
 web.template.Template.globals['_'] = custom_gettext
 _ = custom_gettext
+
+#config session
+web.config.session_parameters['cookie_name'] = "ztl"
+web.config.session_parameters['cookie_domain'] = None
+web.config.session_parameters['timeout'] = 1800 #30 * 60, 30minutes
+web.config.session_parameters['ignore_expiry'] = False
+web.config.session_parameters['ignore_change_ip'] = False
+web.config.session_parameters['secret_key'] = 'fLjUfxqXtfNoIldA0A0J'
+web.config.session_parameters['expired_message'] = 'Session expired'
+
+#config debug
+web.config.debug = False
 
 class Page:
     def __init__(self):

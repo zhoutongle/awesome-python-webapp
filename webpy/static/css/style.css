@@ -143,6 +143,8 @@ table.datatable{
 }
 ul li{
     list-style-type:none;
+    font-size:12px;
+    color:#66696C; 
 }
 
 /*************toolbar操作栏的样式************************/

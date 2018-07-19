@@ -1,16 +1,42 @@
 $def with(content)
 
+<nav class="navbar navbar-default-nav" style="background-color: #A6C9E2;border-radius: 5px">
+    <div class="container-fluid">
+    <div class="navbar-header">
+        <span class="navbar-brand fa fa-user fa-lg">Logo</span>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle fa fa-cog fa-lg" data-toggle="dropdown">
+                    $_('operation of log')
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="fa fa-trash fa-lg" href="javascript:delete_log()">&nbsp; $_('delete')</a></li>
+                    <li class="divider"></li>
+                    <li><a class="fa fa-refresh fa-lg" href="javascript:get_log()")>&nbsp; 刷新</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <table id="log_table">
     <thead>
-        <th style="width:10%"><input type="checkbox" onClick="check_all(this)"></th>
+        <th style="width:10%"><input type="checkbox" onchange="check_all(this)"></th>
+        <th style="width:12%">$_('type')</th>
+        <th style="width:10%">$_('level')</th>
         <th style="width:20%">$_('time')</th>
         <th style="width:80%">$_('event')</th>
     </thead>
     <tbody>
-        $for info in content:
+        $for info in content['loglist']:
             <tr>
                 <td><input type="checkbox" class="oper"></td>
-                <td>$info['time']</td>
+                <td>$info['serial']</td>
+                <td>$info['level']</td>
+                <td class="time" value="$(info['time'])">$info['time']</td>
                 <td>$info['message']</td>
             </tr>
     </tbody>
@@ -18,6 +44,7 @@ $def with(content)
 
 <script>
     $(ELT)(function(){
+        $(ELT)('#num').html('$content["num"]');
         $(ELT)("#log_table").DataTable({
             "bSort": true,
             "bStateSave": true,
@@ -42,17 +69,76 @@ $def with(content)
     }
     function check_all(this_table){
         var tableObj = $(ELT)("#log_table").DataTable();
-        var rowNode = tableObj.rows().nodes();
-        for(var i = 0;i < rowNode.length;i++){
-            var rowObj = $(ELT)(rowObj[i]);
+        var nodeObj = tableObj.rows().nodes();
+        for(var i = 0;i < nodeObj.length;i++){
+            var rowObj = $(ELT)(nodeObj[i]);
             var statusObj = rowObj.find('.oper');
             if(this_table.checked){
                 rowObj.addClass('selected');
-                statusObj.attr("checked", true);
+                statusObj.prop("checked", true);
             }else{
                 rowObj.removeClass('selected');
-                statusObj.attr("checked", false);
+                statusObj.prop("checked", false);
             }
         }
+    }
+    function delete_log(){
+        var loglist = []
+        var tableObj = $(ELT)("#log_table").DataTable();
+        var nodeObj = tableObj.rows().nodes();
+        for(var i = 0;i < nodeObj.length;i++){
+            var rowObj = $(ELT)(nodeObj[i]);
+            var statusObj = rowObj.find('.oper');
+            if(statusObj.prop("checked")){
+                var timeObj = rowObj.find('.time');
+                loglist.push(timeObj.html())
+            }
+        }
+        var dataobj = {
+            "loglist" : loglist
+        };
+        var data = $(ELT).param(dataobj, true)
+        if(loglist.length == 0){
+            custAlert("$_('operfail')", "$_('select the log you want to delete')");
+            return
+        }
+        var url = "/deletelog?" + new Date().getTime();
+        var buttons = {
+            "$_('cancel')": function(){
+                $(ELT)(this).dialog("close");
+            },
+            "$_('confirm')": function(){
+                $(ELT)(this).dialog("close");
+                $(ELT).ajax({
+                    url: url,
+                    type: 'POST',
+                    data: data,
+                    dataType: 'text',
+                    beforeSend: function(){
+                        custLoading("$_('deleting log...')");
+                    },
+                    error: function(){
+                        $(ELT)("#loaddialog").dialog("close");
+                        custAlert("$_('operfail')", "$_('Request Error')");
+                    },
+                    success: function(text){
+                        if(isNaN(text)){
+                            $(ELT)("#loaddialog").dialog("close");
+                            custAlert("$_('operfail')", text)
+                        }else{
+                            if(parseInt(text) == 0){
+                                $(ELT)("#loaddialog").dialog("close");
+                                custAlert("$_('opersucc')", "$_('delete log success')")
+                                get_log()
+                            }else{
+                                $(ELT)("#loaddialog").dialog("close");
+                                custAlert("$_('operfail')", "$_('delete log failed')")
+                            }
+                        }
+                    }
+                });
+            }
+        };
+        custConfirm("$_('confirmoper')", "$_('confirm delete log')", buttons);
     }
 </script>

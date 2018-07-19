@@ -17,6 +17,7 @@ $def with(content)
         <!-- Bootstrap 核心 JavaScript 文件 -->
         <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <!--jquery.validate-->
+        <script src="static/js/remember.js"></script
     </head>
     <body>
         <!--
@@ -45,7 +46,7 @@ $def with(content)
                         </div>
                         <div class="form-group">
                             <label class="checkbox">
-                                <input type="checkbox" name="remember" value="1"/> Remember me
+                                <input type="checkbox" id="remember" name="remember" onchange="setCookie2(this)"/> Remember me
                             </label>
                             <hr />
                             <!--a href="javascript:;" id="register_btn" class="">Create an account</a-->
@@ -102,7 +103,17 @@ $def with(content)
     </body>
 </html>
 <script type="text/javascript">
+    $(ELT)(function(){
+        var value = $(ELT)("#username").val();
+        var password = $(ELT)("#password").val();
+        if(value == 'null'){
+            $(ELT)("#password").val('');
+            $(ELT)("#username").val('');
+            $(ELT)('#username').focus();
+        }
+    });
     $(ELT)(".loginerror").hide();
+    getCookie2();
     function user_login(){
         var url = '/login?' + new Date().getTime();
         var username = $(ELT)("#username").val();
@@ -127,6 +138,10 @@ $def with(content)
             dataType : 'JSON',
             success:function(text){
                 if(text == 0){
+                    obj = $(ELT)("#remember");
+                    if(obj.attr('checked')){
+                        setCookie2(obj);
+                    }
                     $(ELT)(".loginerror").html('');
                     $(ELT)(".loginerror").show();
                     $(ELT)(".loginerror").html("登陆成功！");
@@ -134,13 +149,13 @@ $def with(content)
                 }else{
                     $(ELT)(".loginerror").html('');
                     $(ELT)(".loginerror").show();
-                    $(ELT)(".loginerror").html("1密码或账号错误！");
+                    $(ELT)(".loginerror").html("密码或账号错误！");
                 }
             },
             error:function(){
                 $(ELT)(".loginerror").html('');
                 $(ELT)(".loginerror").show();
-                $(ELT)(".loginerror").html("2密码或账号错误！");
+                $(ELT)(".loginerror").html("密码或账号错误！");
             }
         });
     }

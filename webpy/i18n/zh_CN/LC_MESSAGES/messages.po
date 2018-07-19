@@ -2,16 +2,16 @@
 msgid "page"
 msgstr "主页"
 
-msgid "manager_system"
+msgid "manager system"
 msgstr "管理系统"
 
-msgid "home_page"
+msgid "home page"
 msgstr "首页"
 
 msgid "administrator"
 msgstr "管理员"
 
-msgid "change_password"
+msgid "change password"
 msgstr "修改密码"
 
 msgid "exit"
@@ -20,10 +20,10 @@ msgstr "退出"
 msgid "help"
 msgstr "帮助"
 
-msgid "product_information"
+msgid "product information"
 msgstr "产品信息"
 
-msgid "set_time"
+msgid "set time"
 msgstr "设置时间"
 
 msgid "language"
@@ -40,3 +40,130 @@ msgstr "内存使用率过高，使用率达到"
 
 msgid "Cpu usage is too hight, cpu usage reached"
 msgstr "cpu使用率过高，使用率达到"
+
+####################  操作翻译  ########################
+msgid "cancel"
+msgstr "取消"
+
+msgid "confirm"
+msgstr "确定"
+
+msgid "operfail"
+msgstr "操作失败"
+
+msgid "opersucc"
+msgstr "操作成功"
+
+msgid "confirmoper"
+msgstr "确认操作"
+
+msgid "operfailinfo"
+msgstr "操作失败，请重试或联系系统管理员！"
+
+msgid "deleting log..."
+msgstr "正在删除日志..."
+
+msgid "equest Error"
+msgstr "请求失败!"
+
+msgid "delete log success"
+msgstr "删除日志成功！"
+
+msgid "delete log failed"
+msgstr "删除日志失败！"
+
+msgid "confirm delete log"
+msgstr "您确定删除日志？"
+
+msgid "operation of log"
+msgstr "日志的操作"
+
+msgid "delete"
+msgstr "删除"
+
+msgid "type"
+msgstr "类型"
+
+msgid "level"
+msgstr "等级"
+
+msgid "select the log you want to delete"
+msgstr "请选择您要删除的日志！"
+
+msgid "Chinese"
+msgstr "中文"
+
+msgid "English"
+msgstr "英文"
+
+msgid "user managerment"
+msgstr "用户管理"
+
+msgid "look log"
+msgstr "查看日志"
+
+msgid "material managerment"
+msgstr "物料管理"
+
+msgid "icon statistics"
+msgstr "图标统计"
+
+msgid "disk usage"
+msgstr "磁盘使用率"
+
+msgid "memory usage"
+msgstr "内存使用率"
+
+msgid "voice"
+msgstr "语音"
+
+msgid "music"
+msgstr "音乐"
+
+msgid "reading"
+msgstr "阅读"
+
+msgid "search"
+msgstr "搜索"
+
+msgid "dou ban"
+msgstr "豆瓣"
+
+msgid "about system"
+msgstr "关于系统"
+
+msgid "loading data ..."
+msgstr "正在加载数据..."
+
+msgid "failed to get user information"
+msgstr "获得用户信息失败！"
+
+msgid "information"
+msgstr "信息"
+
+msgid "failed to get system information"
+msgstr "获得系统信息失败！"
+
+msgid "set system time"
+msgstr "设置系统时间"
+
+msgid "failed to get disk information"
+msgstr "获得磁盘信息失败！"
+
+msgid "failed to get icon information"
+msgstr "获得图标信息失败！"
+
+msgid "failed to get memory information"
+msgstr "获得内存信息失败！"
+
+msgid "failed to get log information"
+msgstr "获得日志信息失败！"
+
+msgid "music failed to play"
+msgstr "播放音乐失败！"
+
+msgid "failure to read text"
+msgstr "阅读文本失败！"
+
+msgid "failed to get movie information"
+msgstr "获得电影信息失败！"
