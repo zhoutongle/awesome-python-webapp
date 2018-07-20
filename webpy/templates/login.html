@@ -135,21 +135,28 @@ $def with(content)
             type : 'POST',
             data : "&username=" + username + "&password=" + password,
             async: false,
-            dataType : 'JSON',
+            dataType : 'text',
             success:function(text){
-                if(text == 0){
-                    obj = $(ELT)("#remember");
-                    if(obj.attr('checked')){
-                        setCookie2(obj);
-                    }
+                alert(text)
+                if(isNaN(text)){
                     $(ELT)(".loginerror").html('');
                     $(ELT)(".loginerror").show();
-                    $(ELT)(".loginerror").html("登陆成功！");
-                    $(ELT)(window.location).attr('href', '/');
+                    $(ELT)(".loginerror").html(text);
                 }else{
-                    $(ELT)(".loginerror").html('');
-                    $(ELT)(".loginerror").show();
-                    $(ELT)(".loginerror").html("密码或账号错误！");
+                    if(parseInt(text) == 0){
+                        obj = $(ELT)("#remember");
+                        if(obj.attr('checked')){
+                            setCookie2(obj);
+                        }
+                        $(ELT)(".loginerror").html('');
+                        $(ELT)(".loginerror").show();
+                        $(ELT)(".loginerror").html("登陆成功！");
+                        $(ELT)(window.location).attr('href', '/');
+                    }else{
+                        $(ELT)(".loginerror").html('');
+                        $(ELT)(".loginerror").show();
+                        $(ELT)(".loginerror").html(text);
+                    }
                 }
             },
             error:function(){

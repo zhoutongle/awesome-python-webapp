@@ -1,5 +1,28 @@
 $def with(content)
 
+<nav class="navbar navbar-default-nav" style="background-color: #A6C9E2;border-radius: 5px">
+    <div class="navbar-header">
+        <span class="navbar-brand fa fa-user fa-lg">Logo</span>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle fa fa-cog fa-lg" data-toggle="dropdown">
+                    $_('operation of user')
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="fa fa-plus fa-lg" href="javascript:add_user()">&nbsp; $_('new')</a></li>
+                    <li class="divider"></li>
+                    <li><a class="fa fa-trash fa-lg" href="javascript:delete_user()">&nbsp; $_('delete')</a></li>
+                    <li class="divider"></li>
+                    <li><a class="fa fa-refresh fa-lg" href="javascript:get_user()")>&nbsp; $_('refresh')</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <table id="user_table">
     <thead>
         <th style="width:10%"><input type="checkbox" onchange="check_all(this)"></th>
@@ -15,7 +38,7 @@ $def with(content)
             </tr>
     </tbody>
 </table>
-<script>
+<script type="text/javascript">
     $(ELT)(function(){
         $(ELT)("#user_table").DataTable({
             "bSort": true,
@@ -31,4 +54,32 @@ $def with(content)
             }]
         });
     });
+    
+    function add_user(){
+        var url = "/adduser?" + new Date().getTime();
+        var adduser = $(ELT)('<div id="adduserdialog" >').appendTo('body');
+        adduser.dialog({
+            bgiframe: true,
+            modal: true,
+            autoOpen:false,
+            resizable:false,
+            width:600,
+            title:"$_('information')",
+            open:function(){
+                custLoading("$_('loading data ...')");
+            },
+            close:function(){
+                $(ELT)(this).remove();
+            },
+            buttons:{
+                "$_('confirm')": function() {
+                    adduser.dialog("close");
+                }
+            }
+        });
+        $(ELT)("#adduserdialog").load(url,'',function(){
+            $(ELT)('#loaddialog').dialog('close');
+        });
+        $(ELT)("#adduserdialog").dialog("open");
+    }
 </script>

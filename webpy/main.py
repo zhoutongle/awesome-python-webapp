@@ -19,6 +19,7 @@ from notify_utils import *
 from mp3_utils import *
 from read_utils import *
 from get_models import *
+from base import _
 
 MONITOR_PATH = currpath + "\\utils\\monitor_reporter.py"
 CPU_MEM_PATH = currpath + "\\data\\cpu_mem.txt"
@@ -41,7 +42,8 @@ urls = (
     '/playmusic', 'playmusic',
     '/readbook', 'readbook',
     '/getmovie', 'getmovie',
-    '/getuser', 'getuser'
+    '/getuser', 'getuser',
+    '/adduser', 'adduser'
 )
 
 app = web.application(urls, globals())
@@ -68,14 +70,25 @@ class login:
     def GET(self):
         return render.login([])
     def POST(self):
-        params = web.input()
-        print(params)
-        username = params['username']
-        password = params['password']
-        if username == "admin" and password == "123456":
-            return 0
-        else:
-            return 1
+        try:
+            params = web.input()
+            content = []
+            with open(USER_PASSWD_PATH, "r") as f:
+                file_content = f.read()
+                if file_content:
+                    content = eval(file_content)
+            username = params['username']
+            password = params['password']
+            print content
+            for user in content:
+                if username == user['username']:
+                    if password == user["password"]:
+                        return 0
+                    else:
+                        return _("password is error")
+            return _("user does not exist")
+        except Exception as e:
+            print traceback.format_exc
 
 class logout:
     def GET(self):
@@ -176,6 +189,10 @@ class getuser:
         if file_content:
             content = eval(file_content)
         return render.getuser(content)
+        
+class adduser:
+    def GET(self):
+        return render.adduser()
 
 if __name__ == "__main__":
     try:

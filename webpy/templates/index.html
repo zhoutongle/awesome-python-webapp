@@ -30,38 +30,36 @@ $def with(content)
 </script>
 </head>
 <body>
-    <div id="neversike" style="margin-top:40px;background:#adadad;">
+    <div id="neversike" style="margin-top:40px">
+        <dl class="head-info">
         <!--p>基本的胶囊式导航菜单</p-->
-        <ul class="container nav nav-pills nav-left navbar-fixed-top" style="width:998px">
-            <li><a href="/" onclick="">$_("home page")</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">$_('administrator')<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" onclick="custAlert('123','123')">$_('change password')</a></li>
-                    <li><a href="/logout" onclick="">$_('exit')</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" >$_('help')<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" onclick="info()">$_('product information')</a></li> 
-                </ul>
-            </li>
-            <li><a href="javascript:void(0)" onclick="settime()">$_('set time')</a></li>
-            <li class="dropdown pull-right">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">$_('language')<strong class="caret"></strong></a>
-                <ul class="dropdown-menu">
-                    <li> 
-                        <a href="#">$_('Chinese')</a>
-                    </li>
-                    <li class="divider">
-                    </li>
-                    <li>
-                        <a href="#">$_('English')</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+            <ul class="container nav nav-pills nav-left navbar-fixed-top" style="width:998px">
+                <li><a href="/"><i class="fa fa-home fa-fw"></i>$_("home page")</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user-secret fa-fw"></i>$_('administrator')<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)"><i class="fa fa-pencil-square fa-fw"></i>$_('change password')</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>$_('exit')</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" ><i class="fa fa-info-circle fa-fw"></i>$_('help')<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)" onclick="info()"><i class="fa fa-info fa-fw"></i>$_('product information')</a></li> 
+                    </ul>
+                </li>
+                <li><a href="javascript:void(0)" onclick="settime()"><i class="fa fa-calendar fa-fw"></i>$_('set time')</a></li>
+                <li class="dropdown pull-right">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-language fa-fw"></i>$_('language')<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li> <a href="#">$_('Chinese')</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">$_('English')</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </dl>
     </div>
     <!--div class="container" style="width:998px;" >
         <img src="static/image/header-bg-1.jpg" class="img-responsive" alt="Cinque Terre" width="998px" height="236"> 
