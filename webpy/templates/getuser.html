@@ -63,7 +63,7 @@ $def with(content)
             modal: true,
             autoOpen:false,
             resizable:false,
-            width:600,
+            width:500,
             title:"$_('information')",
             open:function(){
                 custLoading("$_('loading data ...')");
@@ -72,8 +72,51 @@ $def with(content)
                 $(ELT)(this).remove();
             },
             buttons:{
-                "$_('confirm')": function() {
-                    adduser.dialog("close");
+                "$_('cancel')": function(){
+                    $(ELT)(this).remove();
+                },
+                "$_('create')": function() {
+                    $(ELT)('#loaddialog').dialog('close');
+                    $(ELT)("#add_user_form").bootstrapValidator('validate');
+                    if($(ELT)("#add_user_form").data('bootstrapValidator').isValid()){
+                        var dataobj = {
+                            "username": $(ELT)("input[name='username']").val(),
+                            "password": $(ELT)("input[name='passwd1']").val(),
+                            "mail": $(ELT)("input[name='email']").val()
+                        };
+                        var data = $(ELT).param(dataobj, true)
+                        var url = "/adduser?" + new Date().getTime();
+                        $(ELT).ajax({
+                            url: url,
+                            type: 'POST',
+                            data: data,
+                            dataType: 'text',
+                            beforeSend: function(){
+                                custLoading("$_('adding user...')");
+                            },
+                            error: function(){
+                                adduser.dialog('close');
+                                $(ELT)("#loaddialog").dialog("close");
+                                custAlert("$_('operfail')", "$_('Request Error')");
+                            },
+                            success: function(text){
+                                adduser.dialog('close');
+                                if(isNaN(text)){
+                                    $(ELT)("#loaddialog").dialog("close");
+                                    custAlert("$_('operfail')", text)
+                                }else{
+                                    if(parseInt(text) == 0){
+                                        $(ELT)("#loaddialog").dialog("close");
+                                        custAlert("$_('opersucc')", "$_('add user success')")
+                                    }else{
+                                        $(ELT)("#loaddialog").dialog("close");
+                                        custAlert("$_('operfail')", "$_('add user failed')")
+                                    }
+                                }
+                                get_user();
+                            }
+                        });
+                    }
                 }
             }
         });

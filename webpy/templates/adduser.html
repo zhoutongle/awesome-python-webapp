@@ -1,52 +1,114 @@
 <style>
-    .fa1{
+.fa1{
     display: inline-block;
-    top: 5px;
-    left: -42px;
+    top: 40px;
+    left: 240px;
     position: relative;
     color: #ccc;
 }
-input[type="text"]{
-    padding-left: 25px;
-    width: 200px;
-    height: 30px;
-    margin: -18px 0 0 -50px;
+.fa2{
+    display: inline-block;
+    top: 40px;
+    left: 215px;
+    position: relative;
+    color: #ccc;
 }
-li{
-    list-style-type:none;
+input[type="text"], input[type="password"], input[type="email"]{
+    margin: 10px 0 0 0px;
+    width: 300px;
+}
+.star{
+    color: red
 }
 </style>
 <div class="alert alert-info">信息！带*的为必填项！</div>
-<form role="form">
+<form id="add_user_form">
     <div class="form-group">
-        <label id="name" class="col-sm-2 control-label">名称</label>
-        <div class="col-sm-10">
-            <i class="fa1 fa fa-user fa-lg"></i>
-            <input type="text" class="form-control" id="name" placeholder="请输入名称">
-        </div>
+        <label>名称</label><span class="star">*</span>
+        <i class="fa1 fa fa-user fa-lg"></i>
+        <input type="text" class="form-control" name="username" placeholder="请输入名称">
     </div>
-    <br /><br />
     <div class="form-group">
-        <label id="name" class="col-sm-2 control-label">密码</label>
-        <div class="col-sm-10">
-            <i class="fa1 fa fa-lock fa-lg"></i>
-            <input type="text" class="form-control" id="name" placeholder="请输入密码">
-        </div>
+        <label>密码</label><span class="star">*</span>
+        <i class="fa1 fa fa-lock fa-lg"></i>
+        <input type="password" class="form-control" name="passwd1" placeholder="请输密码">
     </div>
-    <br />
     <div class="form-group">
-        <label id="name" class="col-sm-2 control-label">密码</label>
-        <div class="col-sm-10">
-            <i class="fa1 fa fa-lock fa-lg"></i>
-            <input type="text" class="form-control" id="name" placeholder="请输入密码">
-        </div>
+        <label>确认密码</label><span class="star">*</span>
+        <i class="fa2 fa fa-lock fa-lg"></i>
+        <input type="password" class="form-control" name="passwd2" placeholder="请输密码">
     </div>
-    <br />
-    <div class="form-group">
-        <label id="name" class="col-sm-2 control-label">邮箱</label>
-        <div class="col-sm-10">
-            <i class="fa1 fa fa-envelope fa-lg"></i>
-            <input type="text" class="form-control" id="name" placeholder="请输入邮箱">
-        </div>
+        <div class="form-group">
+        <label>邮箱</label><span class="star">*</span>
+        <i class="fa1 fa fa-lock fa-lg"></i>
+        <input type="email" class="form-control" name="email" placeholder="请输邮箱">
     </div>
 </form>
+<script>
+    $(ELT)(function(){
+        $(ELT)("#add_user_form").bootstrapValidator({
+            message: "This value is not valid",
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                username: {
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        },
+                        stringLength: {
+                            min: 3,
+                            max: 30,
+                            message: '长度必须在3-30之间'
+                        },
+                        /*regexp: {
+                            regexp: ,
+                            message: '输入字符不符合要求，大小写字母，数字，下划线'
+                        }*/
+                    }
+                },
+                passwd1: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 12,
+                            message: '长度必须在6-12之间'
+                        },
+                    }
+                },
+                passwd2: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 12,
+                            message: '长度必须在6-12之间'
+                        },
+                        identical: {
+                            field: 'passwd1',
+                            message: '输入的密码不一致'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: '邮箱不能为空'
+                        },
+                        emailAddress: {
+                            message: '不是正确的email地址'
+                        }
+                    }
+                },
+            }
+        });
+    });
+</script>

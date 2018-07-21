@@ -1,1 +1,1 @@
-[{"username" : "admin", "password" : "123456", "mail" : "admin@estor.com"}]
+[{'username': 'admin', 'mail': 'admin@estor.com', 'password': '123456'}, {'username': u'admin123', 'mail': u'1140082051@qq.com', 'password': u'12345678'}, {'username': u'admin1234', 'mail': u'1140082051@qq.com', 'password': u'12345678'}, {'username': u'Admin', 'mail': u'1140082051@qq.com', 'password': u'123456'}, {'username': u'1234', 'mail': u'1140082051@qq.com', 'password': u'123123'}]

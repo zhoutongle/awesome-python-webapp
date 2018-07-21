@@ -49,6 +49,8 @@ urls = (
 app = web.application(urls, globals())
 render=web.template.render('templates')
 session = web.session.Session(app, web.session.DiskStore('session'))
+#config debug
+web.config.debug = False
 
 class index:
     def GET(self):
@@ -79,7 +81,6 @@ class login:
                     content = eval(file_content)
             username = params['username']
             password = params['password']
-            print content
             for user in content:
                 if username == user['username']:
                     if password == user["password"]:
@@ -193,6 +194,24 @@ class getuser:
 class adduser:
     def GET(self):
         return render.adduser()
+    def POST(self):
+        params = web.input()
+        content = []
+        user = {}
+        with open(USER_PASSWD_PATH, "r") as f:
+            file_content = f.read()
+        if file_content:
+            content = eval(file_content)
+        for sub in content:
+            if sub['username'] == params['username']:
+                return _('this user is exist')
+        user['username'] = params['username']
+        user['password'] = params['password']
+        user['mail'] = params['mail']
+        content.append(user)
+        with open(USER_PASSWD_PATH, "w") as f:
+            f.write("%s" % content)
+        return 0
 
 if __name__ == "__main__":
     try:

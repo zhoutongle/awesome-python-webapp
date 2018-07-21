@@ -12,6 +12,7 @@ $def with(content)
 <link href="static/css/style.css" rel="stylesheet" type="text/css">
 <link href="static/css/icon-picker.css" rel="stylesheet" type="text/css">
 <link href="static/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="static/css/bootstrapValidator.min.css" rel="stylesheet" type="text/css">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -22,8 +23,10 @@ $def with(content)
 <script src="static/js/utils.js"></script>
 <script src="static/js/lib/DatePicker/WdatePicker.js"></script>
 <script src="static/js/jquery.dataTables.js"></script>
+<script src="static/js/jquery.validate.min.js"></script>
 <script src="static/js/echarts.js"></script>
 <script src="static/js/iconPicker.js"></script>
+<script src="static/js/bootstrapValidator.min.js"></script>
 <title>$_("manager system")</title>
 
 <script type="text/JavaScript">
@@ -368,7 +371,7 @@ $def with(content)
                 $(ELT)("#content").html(text);
             },
             error:function(){
-                $$('#loaddialog').dialog('close');
+                $(ELT)('#loaddialog').dialog('close');
                 custAlert("$_('operfail')", "$_('failed to get memory information')")
             }
         });
