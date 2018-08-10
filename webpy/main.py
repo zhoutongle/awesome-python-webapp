@@ -4,6 +4,10 @@ from base import *
 import simplejson
 import datetime
 import subprocess
+from time import sleep
+import random
+import xlwt
+import json
 
 currpath = os.path.join(os.getcwd(), os.path.dirname(__file__))
 if not currpath in sys.path:
@@ -19,7 +23,8 @@ from notify_utils import *
 from mp3_utils import *
 from read_utils import *
 from get_models import *
-from base import _
+from find_utils import *
+from base import _, session
 
 MONITOR_PATH = currpath + "\\utils\\monitor_reporter.py"
 CPU_MEM_PATH = currpath + "\\data\\cpu_mem.txt"
@@ -39,11 +44,16 @@ urls = (
     '/getcpuinfoa', 'getcpuinfoa',
     '/getlog', 'getlog',
     '/deletelog', 'deletelog',
+    '/getmusic', 'getmusic',
     '/playmusic', 'playmusic',
     '/readbook', 'readbook',
     '/getmovie', 'getmovie',
     '/getuser', 'getuser',
-    '/adduser', 'adduser'
+    '/adduser', 'adduser',
+    '/deleteuser', 'deleteuser',
+    '/getgeo', 'getgeo',
+    '/modifypassword', 'modifypassword',
+    '/moviedownload', 'moviedownload'
 )
 
 app = web.application(urls, globals())
@@ -84,12 +94,18 @@ class login:
             for user in content:
                 if username == user['username']:
                     if password == user["password"]:
+                        # print session.keys(), session.values()
+                        # session.user = {}
+                        # session.user.id = 1
+                        # session.user.name = username
+                        # session.user.passwd = password
+                        # print session.keys(), session.values()
                         return 0
                     else:
                         return _("password is error")
             return _("user does not exist")
         except Exception as e:
-            print traceback.format_exc
+            print traceback.format_exc()
 
 class logout:
     def GET(self):
@@ -99,7 +115,35 @@ class logout:
 class settime:
     def GET(self):
         return render.settime()
-
+        
+class modifypassword:
+    def GET(self):
+        params = web.input()
+        content = {}
+        content['currentuser'] = params['currentuser']
+        print content
+        return render.modifypassword(content)
+    def POST(self):
+        params = web.input()
+        username = params['username']
+        password0 = params['password0']
+        password1 = params['password1']
+        content = []
+        with open(USER_PASSWD_PATH, "r") as f:
+            file_content = f.read()
+            if file_content:
+                content = eval(file_content)
+        for user in content:
+            if username == user['username']:
+                if password0 == user["password"]:
+                    user["password"] = password1
+                    with open(USER_PASSWD_PATH, "w") as f:
+                        f.write("%s" % content)
+                    return 0
+                else:
+                    return _("password is error")
+        return _("user does not exist")
+        
 class getdisk:
     def GET(self):
         content = get_system_info()
@@ -160,20 +204,38 @@ class deletelog:
             else:
                 return _("log")
         return 0
-
-class playmusic:
+        
+class getmusic:
     def GET(self):
         content = []
-        return render.playmusic(content)
+        music = []
+        music = find_file(".mp3", "f:\\")
+        music1 = find_file(".mp3", "e:\\")
+        music2 = find_file(".mp3", "d:\\")
+        music3 = find_file(".mp3", "c:\\")
+        music.extend(music1)
+        music.extend(music2)
+        music.extend(music3)
+        return render.getmusic(music)
+
+class playmusic:
     def POST(self):
         params = web.input()
         flag = params['flag']
-        play_music(flag)
+        musicname = params['musicname']
+        musicname = musicname.replace("/", "\\\\")
+        play_music(flag, musicname)
+        return 0
         
 class readbook:
     def GET(self):
         content = []
         return render.readbook(content)
+    def POST(self):
+        params = web.input()
+        info = params['info']
+        say_word(info)
+        return 0
         
 class getmovie:
     def GET(self):
@@ -213,6 +275,33 @@ class adduser:
             f.write("%s" % content)
         return 0
 
+class deleteuser:
+    def POST(self):
+        params = web.input(userlist=[])
+        content = []
+        userlist = params['userlist']
+        with open(USER_PASSWD_PATH, "r") as f:
+            file_content = f.read()
+            if file_content:
+                content = eval(file_content)
+                for sub in content[::]:
+                    if sub['username'] in userlist:
+                        content.remove(sub)
+                with open(USER_PASSWD_PATH, "w") as f:
+                    f.write("%s" % content)
+            else:
+                return _("user")
+        return 0
+       
+class getgeo:
+    def GET(self):
+        return render.getgeo()
+        
+class moviedownload:
+    def POST(self):
+        filename = currpath + "movie_info_" + datetime.datetime.now().strftime("_%Y_%m_%d_%H_%M_%S_%f") + ".xls"           
+        return 0
+        
 if __name__ == "__main__":
     try:
         ret = subprocess.Popen('python %s >> /dev/null 2>&1' % MONITOR_PATH)

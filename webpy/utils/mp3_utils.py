@@ -33,7 +33,9 @@ def play_music(flag):
         print flag
         global music
         if music == None:
-            filename = u"C:\\Users\\Administrator\\Music\\123.mp3"
+            #filename = u"C:\\Users\\Administrator\\Music\\123.mp3"
+            filename = u"F:\\CloudMusic\\一棵小葱 - 狂浪生.mp3"
+            filename = filename.encode('utf-8')
             music = mp3play.load(filename)
         else:
             print music.isplaying()
@@ -54,11 +56,14 @@ def play_music(flag):
     except Exception, e:
         print e
 
-def play_music(flag):
-    filename = u"C:\\Users\\Administrator\\Music\\123.mp3"
+def play_music(flag, musicname):
+    #filename = u"C:\\Users\\Administrator\\Music\\123.mp3"
+    filename = "f:\\CloudMusic\\一棵小葱 - 狂浪生.mp3"
+    filename = filename.encode('utf-8')
+    musicname = musicname.encode('utf-8')
     if flag == "play":
         pygame.mixer.init()
-        pygame.mixer.music.load(filename)
+        pygame.mixer.music.load(musicname)
         pygame.mixer.music.play()
     elif flag == "stop":
         if pygame.mixer.music.get_busy() == 1:

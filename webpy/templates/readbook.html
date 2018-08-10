@@ -8,7 +8,7 @@ $def with(content)
         </li>
         <li>&nbsp;</li>
         <li>
-            <textarea rows="5" cols="55" style="resize: none;" class="ui-widget-content ui-corner-all"  value="" placeholder="输入需要阅读的内容"></textarea>
+            <textarea id="info" rows="5" cols="55" style="resize: none;" class="ui-widget-content ui-corner-all"  value="" placeholder="输入需要阅读的内容"></textarea>
         </li>
         <li>&nbsp;</li>
         <li>
@@ -23,17 +23,17 @@ $def with(content)
             url : url,
             type : 'POST',
             async: false,
-            data: "info=" + "123",
+            data: "info=" + $(ELT)("#info").val(),
             dataType : 'text',
             success:function(text){
                 if(text == 0){
-                    alert("success!!!");
+                    custAlert("操作成功", "播放音乐成功！");
                 }else{
-                    alert("1error!!!");
+                    custAlert("操作成功", "播放音乐成功！");
                 }
             },
             error:function(){
-                alert("2error!!!");
+                custAlert("操作成功", "播放音乐成功！");
             }
         });
     }

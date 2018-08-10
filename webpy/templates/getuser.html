@@ -1,6 +1,6 @@
 $def with(content)
 
-<nav class="navbar navbar-default-nav" style="background-color: #A6C9E2;border-radius: 5px">
+<nav class="navbar navbar-default-nav oper">
     <div class="navbar-header">
         <span class="navbar-brand fa fa-user fa-lg">Logo</span>
     </div>
@@ -33,7 +33,7 @@ $def with(content)
         $for info in content:
             <tr>
                 <td><input type="checkbox" class="oper"></td>
-                <td>$info['username']</td>
+                <td class="name" value="$(info['username'])">$info['username']</td>
                 <td>$info['mail']</td>
             </tr>
     </tbody>
@@ -54,10 +54,32 @@ $def with(content)
             }]
         });
     });
-    
+    function check_num(obj){
+        var selectObj = $(ELT)(obj);
+        if(selectObj.attr("checked")){
+            selectObj.parent().parent().addClass('selected');
+        }else{
+            selectObj.parent().parent().removeClass('selected');
+        }
+    }
+    function check_all(this_table){
+        var tableObj = $(ELT)("#user_table").DataTable();
+        var nodeObj = tableObj.rows().nodes();
+        for(var i = 0;i < nodeObj.length;i++){
+            var rowObj = $(ELT)(nodeObj[i]);
+            var statusObj = rowObj.find('.oper');
+            if(this_table.checked){
+                rowObj.addClass('selected');
+                statusObj.prop("checked", true);
+            }else{
+                rowObj.removeClass('selected');
+                statusObj.prop("checked", false);
+            }
+        }
+    }
     function add_user(){
         var url = "/adduser?" + new Date().getTime();
-        var adduser = $(ELT)('<div id="adduserdialog" >').appendTo('body');
+        var adduser = $(ELT)('<div id="adduserdialog">').appendTo('body');
         adduser.dialog({
             bgiframe: true,
             modal: true,
@@ -124,5 +146,64 @@ $def with(content)
             $(ELT)('#loaddialog').dialog('close');
         });
         $(ELT)("#adduserdialog").dialog("open");
+    }
+    function delete_user(){
+        var userlist = []
+        var tableObj = $(ELT)("#user_table").DataTable();
+        var nodeObj = tableObj.rows().nodes();
+        for(var i = 0;i < nodeObj.length;i++){
+            var rowObj = $(ELT)(nodeObj[i]);
+            var statusObj = rowObj.find('.oper');
+            if(statusObj.prop("checked")){
+                var timeObj = rowObj.find('.name');
+                userlist.push(timeObj.html())
+            }
+        }
+        var dataobj = {
+            "userlist" : userlist
+        };
+        var data = $(ELT).param(dataobj, true)
+        if(userlist.length == 0){
+            custAlert("$_('operfail')", "$_('select the user you want to delete')");
+            return
+        }
+        var url = "/deleteuser?" + new Date().getTime();
+        var buttons = {
+            "$_('cancel')": function(){
+                $(ELT)(this).dialog("close");
+            },
+            "$_('confirm')": function(){
+                $(ELT)(this).dialog("close");
+                $(ELT).ajax({
+                    url: url,
+                    type: 'POST',
+                    data: data,
+                    dataType: 'text',
+                    beforeSend: function(){
+                        custLoading("$_('deleting user...')");
+                    },
+                    error: function(){
+                        $(ELT)("#loaddialog").dialog("close");
+                        custAlert("$_('operfail')", "$_('Request Error')");
+                    },
+                    success: function(text){
+                        if(isNaN(text)){
+                            $(ELT)("#loaddialog").dialog("close");
+                            custAlert("$_('operfail')", text)
+                        }else{
+                            if(parseInt(text) == 0){
+                                $(ELT)("#loaddialog").dialog("close");
+                                custAlert("$_('opersucc')", "$_('delete user success')")
+                                get_user()
+                            }else{
+                                $(ELT)("#loaddialog").dialog("close");
+                                custAlert("$_('operfail')", "$_('delete user failed')")
+                            }
+                        }
+                    }
+                });
+            }
+        };
+        custConfirm("$_('confirmoper')", "$_('confirm delete user')", buttons);
     }
 </script>

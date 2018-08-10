@@ -144,7 +144,7 @@ $def with(content)
                 }else{
                     if(parseInt(text) == 0){
                         obj = $(ELT)("#remember");
-                        if(obj.attr('checked')){
+                        if(obj.prop('checked')){
                             setCookie2(obj);
                         }
                         $(ELT)(".loginerror").html('');

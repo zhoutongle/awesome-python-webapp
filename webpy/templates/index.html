@@ -5,28 +5,30 @@ $def with(content)
 <head>
 <meta http-equiv="Content-Type" content="text/html;" charset="utf-8"/>
 <!-- Bootstrap -->
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
-<link href="static/css/dataTable.css" rel="stylesheet" type="text/css">
-<link href="static/css/style.css" rel="stylesheet" type="text/css">
-<link href="static/css/icon-picker.css" rel="stylesheet" type="text/css">
-<link href="static/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="static/css/bootstrapValidator.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="http://jqueryui.com/resources/demos/style.css">
+<link rel="stylesheet" type="text/css" href="static/css/dataTable.css">
+<link rel="stylesheet" type="text/css" href="static/css/style.css">
+<link rel="stylesheet" type="text/css" href="static/css/icon-picker.css">
+<link rel="stylesheet" type="text/css" href="static/css/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/bootstrapValidator.min.css">
+<!--link rel="stylesheet" type="text/css" href="static/css/easyui.css"-->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<script src="static/js/utils.js"></script>
-<script src="static/js/lib/DatePicker/WdatePicker.js"></script>
-<script src="static/js/jquery.dataTables.js"></script>
-<script src="static/js/jquery.validate.min.js"></script>
-<script src="static/js/echarts.js"></script>
-<script src="static/js/iconPicker.js"></script>
-<script src="static/js/bootstrapValidator.min.js"></script>
+<script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script type="text/javascript" src="static/js/utils.js"></script>
+<script type="text/javascript" src="static/js/lib/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="static/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="static/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="static/js/echarts.js"></script>
+<script type="text/javascript" src="static/js/iconPicker.js"></script>
+<script type="text/javascript" src="static/js/bootstrapValidator.min.js"></script>
+<script type="text/javascript" src="static/js/geo.js"></script>
 <title>$_("manager system")</title>
 
 <script type="text/JavaScript">
@@ -41,7 +43,7 @@ $def with(content)
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user-secret fa-fw"></i>$_('administrator')<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:void(0)"><i class="fa fa-pencil-square fa-fw"></i>$_('change password')</a></li>
+                        <li><a href="javascript:modify_password()"><i class="fa fa-pencil-square fa-fw"></i>$_('change password')</a></li>
                         <li class="divider"></li>
                         <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>$_('exit')</a></li>
                     </ul>
@@ -53,6 +55,12 @@ $def with(content)
                     </ul>
                 </li>
                 <li><a href="javascript:void(0)" onclick="settime()"><i class="fa fa-calendar fa-fw"></i>$_('set time')</a></li>
+                <li class="margin-left:100px">
+                    <div style="margin-top:8px;border:1px solid #A6C9E2;border-radius:4px;padding:2px">
+                        <i class="fa fa-user fa-fw"></i>当前用户:
+                        <span id="currentuser"></span>
+                    </div>
+                </li>
                 <li class="dropdown pull-right">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-language fa-fw"></i>$_('language')<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
@@ -121,7 +129,7 @@ $def with(content)
                             </a>
                             <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
                                 <li><a href="javascript:get_user()"><i class="fa fa-user fa-fw"></i>&nbsp; $_("user managerment")</a></li>
-                                <li><a href="#"><i class="fa fa-pencil fa-fw"></i>&nbsp; $_("change password")</a></li>
+                                <li><a href="javascript:modify_password()"><i class="fa fa-pencil fa-fw"></i>&nbsp; $_("change password")</a></li>
                                 <li><a href="javascript:get_log()"><i class="fa fa-eye fa-fw"></i>&nbsp; $_('look log')<span class="label label-warning pull-right" id="num"></span></a></li>
                             </ul>
                         </li>
@@ -135,6 +143,7 @@ $def with(content)
                             <ul id="charts" class="nav nav-list collapse secondmenu" style="height: 0px;">
                                 <li><a href="javascript:get_disk_usage()"><i class="fa fa-area-chart fa-fw"></i>&nbsp; $_('disk usage')</a></li>
                                 <li><a href="javascript:get_cpu_usage()"><i class="glyphicon glyphicon-leaf"></i>&nbsp; $_('memory usage')</a></li>
+                                <li><a href="javascript:get_geo()"><i class="glyphicon glyphicon-leaf"></i>&nbsp; $_('geo')</a></li>
                             </ul>
                         </li>
                         <li>
@@ -144,8 +153,8 @@ $def with(content)
                                 <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul id="voice" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                                <li><a href="javascript:play_music()"><i class="glyphicon glyphicon-music"></i>&nbsp; $_('music')</a></li>
-                                <li><a href="javascript:read_book()"><i class="glyphicon glyphicon-book"></i>&nbsp; $_('reading')</a></li>
+                                <li><a href="javascript:get_music()"><i class="glyphicon glyphicon-music"></i>&nbsp; $_('music')</a></li>
+                                <li><a href="javascript:read_something()"><i class="glyphicon glyphicon-book"></i>&nbsp; $_('reading')</a></li>
                             </ul>
                         </li>
                         <li>
@@ -162,8 +171,8 @@ $def with(content)
                     </ul>
                 </div>
                 <div class="col-md-10">
-                    <div id="content" style="margin-top:10px">
-                        $_("page")
+                    <div id="content">
+                        $_('home page')
                     </div>
                 </div>
             </div>
@@ -174,6 +183,7 @@ $def with(content)
 <script type="text/javascript">
     $(ELT)(function(){
         $(ELT)("#num").html("$content");
+        $(ELT)("#currentuser").html(getCookie("username"));
     });
     function get_user(){
         var url = "/getuser?" + new Date().getTime();
@@ -242,9 +252,9 @@ $def with(content)
             }
         });
     }
-    function modify_content(){
-        var url = "/modifycontent?" + new Date().getTime();  
-        var addmanage = $(ELT)('<div id="modifycontentdialog" >').appendTo('body');
+    function modify_password(){
+        var url = "/modifypassword?" + new Date().getTime();  
+        var modifymanage = $(ELT)('<div id="modifypassworddialog" >').appendTo('body');
         modifymanage.dialog({
             bgiframe: true,
             modal: true,
@@ -259,15 +269,54 @@ $def with(content)
                 $(ELT)(this).remove();
             },
             buttons:{
-                "$_('confirm')": function() {
+                "$_('cancel')": function() {
                     modifymanage.dialog("close");
+                },
+                "$_('modify')": function() {
+                    $(ELT)("#modify_password_form").bootstrapValidator('validate');
+                    if($(ELT)("#modify_password_form").data('bootstrapValidator').isValid()){
+                        var dataobj = {
+                            "username": $(ELT)("#currentuser").html(),
+                            "password0": $(ELT)("input[name='passwd0']").val(),
+                            "password1": $(ELT)("input[name='passwd1']").val(),
+                        };
+                        var data = $(ELT).param(dataobj, true)
+                        $(ELT).ajax({
+                            url: url,
+                            type: 'POST',
+                            data: data,
+                            dataType: 'text',
+                            beforeSend: function(){
+                                custLoading("$_('adding user...')");
+                            },
+                            error: function(){
+                                $(ELT)("#loaddialog").dialog("close");
+                                custAlert("$_('operfail')", "$_('Request Error')");
+                            },
+                            success: function(text){
+                                if(isNaN(text)){
+                                    $(ELT)("#loaddialog").dialog("close");
+                                    custAlert("$_('operfail')", text)
+                                }else{
+                                    if(parseInt(text) == 0){
+                                        modifymanage.dialog('close');
+                                        $(ELT)("#loaddialog").dialog("close");
+                                        custAlert("$_('opersucc')", "$_('add user success')")
+                                    }else{
+                                        $(ELT)("#loaddialog").dialog("close");
+                                        custAlert("$_('operfail')", "$_('add user failed')")
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
             }
         });
-        $(ELT)("#modifycontentdialog").load(url,'',function(){
+        $(ELT)("#modifypassworddialog").load(url,'currentuser=' + $(ELT)("#currentuser").html(),function(){
             $(ELT)('#loaddialog').dialog('close');
         });
-        $(ELT)("#modifycontentdialog").dialog("open");
+        $(ELT)("#modifypassworddialog").dialog("open");
     }
     function settime(){
         var url = "/settime?" + new Date().getTime();
@@ -396,8 +445,8 @@ $def with(content)
             }
         });
     }
-    function play_music(){
-        var url = "/playmusic?" + new Date().getTime();
+    function get_music(){
+        var url = "/getmusic?" + new Date().getTime();
         $(ELT).ajax({
             url : url,
             data: '',
@@ -416,7 +465,7 @@ $def with(content)
             }
         });
     }
-    function read_book(){
+    function read_something(){
         var url = "/readbook?" + new Date().getTime();
         $(ELT).ajax({
             url : url,
@@ -453,6 +502,26 @@ $def with(content)
             error:function(){
                 $(ELT)('#loaddialog').dialog('close');
                 custAlert("$_('operfail')", "$_('failed to get movie information')")
+            }
+        });
+    }
+    function get_geo(){
+        var url = "/getgeo?" + new Date().getTime();
+        $(ELT).ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'html',
+            beforeSend: function(){
+                custLoading("$_('loading data ...')");
+            },
+            success:function(text){
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
+            },
+            error:function(){
+                $(ELT)('#loaddialog').dialog('close');
+                custAlert("$_('operfail')", "$_('failed to get geo')")
             }
         });
     }

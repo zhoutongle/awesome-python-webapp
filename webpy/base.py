@@ -11,8 +11,10 @@ import re
 import json
 import subprocess
 import web
+from urls import urls
 
 currpath = os.path.join(os.getcwd(),os.path.dirname(__file__))
+SESSION_PATH = currpath + "\\session"
 TEMPLATEDIR = os.path.join(currpath,'template')
 JSTEMPLATEDIR = os.path.join(currpath,'js')
 stow = web.storage
@@ -71,6 +73,42 @@ web.config.session_parameters['ignore_expiry'] = False
 web.config.session_parameters['ignore_change_ip'] = False
 web.config.session_parameters['secret_key'] = 'fLjUfxqXtfNoIldA0A0J'
 web.config.session_parameters['expired_message'] = 'Session expired'
+
+app_info = {
+    'mapping':urls,
+    'fvars':globals(),
+}
+app = web.application(**app_info)
+session_info = {
+    'app':app,
+    'store':web.session.DiskStore(SESSION_PATH),
+    'initializer':{
+        'user':stow({
+            'id':None,
+            'name':None,
+            'skin':'redmond',
+            'lang':'zh_CN'
+        }),
+        'runtime':stow({
+            'node':'',
+            'unit':'',
+            'service':'',
+            'managercheck':False
+        }),
+        'global_v':stow({
+            'rlist':list(),
+            'new_msg_num':0
+        })
+    }}
+
+def _init_session():
+    if web.config.get('_session') is None:
+        session = web.session.Session(**session_info)
+        web.config._session = session
+    else:
+        session = web.config._session
+    return session
+session = _init_session()
 
 #config debug
 web.config.debug = False

@@ -1,19 +1,39 @@
 $def with(content)
 
+<nav class="navbar navbar-default-nav oper">
+    <div class="navbar-header">
+        <span class="navbar-brand fa fa-user fa-lg">Logo</span>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle fa fa-cog fa-lg" data-toggle="dropdown">
+                    $_('operation of table')
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="fa fa-refresh fa-lg" href="javascript:get_movie()")>&nbsp; $_('refresh')</a></li>
+                    <li class="divider"></li>
+                    <li><a class="fa fa-refresh fa-lg" href="javascript:get_excel()")>&nbsp; $_('export')</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
 <table id="movie_table">
     <thead>
-        <th style="width:10%"><input type="checkbox" onClick="check_all(this)"></th>
-        <th>序号</th>
-        <th>电影名称</th>
-        <th>电影信息</th>
-        <th>评分</th>
-        <th>参评数</th>
-        <th>描述</th>
+        <!--th style="width:10%"><input type="checkbox" onClick="check_all(this)"></th-->
+        <th>$_('index')</th>
+        <th>$_('movie name')</th>
+        <th>$_('movie info')</th>
+        <th>$_('grade')</th>
+        <th>$_('number')</th>
+        <th>$_('describe')</th>
     </thead>
     <tbody>
         $for sub in content:
             <tr>
-                <td><input type="checkbox" class="oper"></td>
+                <!--td><input type="checkbox" class="oper"></td-->
                 <td>$sub['index']</td>
                 <td>$sub['movie_name']</td>
                 <td>$sub['other']</td>
@@ -61,5 +81,44 @@ $def with(content)
                 statusObj.attr("checked", false);
             }
         }
+    }
+    function get_excel(){
+        var url = "/moviedownload?" + new Date().getTime();
+        var buttons = {
+            "$_('cancel')": function(){
+                $(ELT)(this).dialog('close');
+            },
+            "$_('download')": function(){
+                $(ELT)(this).dialog('close');
+                $(ELT).ajax({
+                    url: url,
+                    type: 'POST',
+                    data: '',
+                    dataType: 'text',
+                    beforeSend: function(){
+                        custLoading("$_('loading data ...')");
+                    },
+                    success:function(text){
+                        $(ELT)('#loaddialog').dialog('close');
+                        downloadfile(url);
+                    },
+                    error:function(){
+                        $(ELT)('#loaddialog').dialog('close');
+                        custAlert("$_('operfail')", "$_('failed to get movie information')")                        
+                    }       
+                });
+            }
+        };
+        custConfirm("$_('confirmoper')", "12345", buttons);
+    }
+    function downloadfile(url){
+        try{
+            var elemIF = document.createElement("iframe");
+            elemIF.src = url;
+            elemIF.style.display = "none";
+            document.body.appendChild(elemIF);
+        }catch(e){
+            custAlert("$_('operfail')","$_('operfailinfo')");
+        }    
     }
 </script>

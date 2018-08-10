@@ -1,4 +1,4 @@
-
+####################  标签  ########################
 msgid "page"
 msgstr "主页"
 
@@ -77,6 +77,12 @@ msgstr "您确定删除日志？"
 
 msgid "operation of log"
 msgstr "日志的操作"
+
+msgid "operation of table"
+msgstr "表格的操作"
+
+msgid "operation of user"
+msgstr "用户的操作"
 
 msgid "delete"
 msgstr "删除"
@@ -167,3 +173,42 @@ msgstr "阅读文本失败！"
 
 msgid "failed to get movie information"
 msgstr "获得电影信息失败！"
+
+msgid "refresh"
+msgstr "刷新"
+
+msgid "index"
+msgstr "序号"
+
+msgid "movie name"
+msgstr "电影名称"
+
+msgid "movie info"
+msgstr "电影信息"
+
+msgid "grade"
+msgstr "评分"
+
+msgid "number"
+msgstr "参评数"
+
+msgid "describe"
+msgstr "描述"
+
+msgid "info!"
+msgstr "信息！带*的为必填项！"
+
+msgid "user name"
+msgstr "名称"
+
+msgid "password"
+msgstr "密码"
+
+msgid "confirm password"
+msgstr "确认密码"
+
+msgid "email"
+msgstr "邮箱"
+
+msgid "new"
+msgstr "创建"

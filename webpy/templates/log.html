@@ -1,6 +1,6 @@
 $def with(content)
 
-<nav class="navbar navbar-default-nav" style="background-color: #A6C9E2;border-radius: 5px">
+<nav class="navbar navbar-default-nav oper">
     <div class="navbar-header">
         <span class="navbar-brand fa fa-user fa-lg">Logo</span>
     </div>
@@ -14,7 +14,7 @@ $def with(content)
                 <ul class="dropdown-menu">
                     <li><a class="fa fa-trash fa-lg" href="javascript:delete_log()">&nbsp; $_('delete')</a></li>
                     <li class="divider"></li>
-                    <li><a class="fa fa-refresh fa-lg" href="javascript:get_log()")>&nbsp; 刷新</a></li>
+                    <li><a class="fa fa-refresh fa-lg" href="javascript:get_log()")>&nbsp; $_('refresh')</a></li>
                 </ul>
             </li>
         </ul>
@@ -40,6 +40,8 @@ $def with(content)
             </tr>
     </tbody>
 </table>
+
+<span id="state"><span>
 
 <script>
     $(ELT)(function(){

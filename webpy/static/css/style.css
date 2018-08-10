@@ -146,7 +146,45 @@ ul li{
     font-size:12px;
     color:#66696C; 
 }
-
+.fa1{
+    display: inline-block;
+    top: 0px;
+    left: 210px;
+    position: relative;
+    color: #ccc;
+}
+.fa2{
+    display: inline-block;
+    top: 0px;
+    left: 184px;
+    position: relative;
+    color: #ccc;
+}
+.fa3{
+    display: inline-block;
+    top: 0px;
+    left: 198px;
+    position: relative;
+    color: #ccc;
+}
+input[type="text"], input[type="password"], input[type="email"]{
+    margin: 10px 0 0 0px;
+    width: 300px;
+}
+.star{
+    color: red
+}
+.oper{
+    background-color:#A6C9E2;
+    border-radius:5px;
+    margin-top:10px
+}
+label {
+    margin-left: 30px;
+}
+form input{
+    width:200px;margin:-30px 0 0 100px;border-radius:5px;
+}
 /*************toolbar操作栏的样式************************/
 #toolbar ul li{
     position:relative;
