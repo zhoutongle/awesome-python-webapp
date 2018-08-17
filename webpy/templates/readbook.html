@@ -1,39 +1,39 @@
 $def with(content)
 
-<form>
-    <ul>
-        <li>&nbsp;</li>
-        <li>
-            <div class="alert alert-info">信息！将需要朗读的信息输入到下面！</div>
-        </li>
-        <li>&nbsp;</li>
-        <li>
-            <textarea id="info" rows="5" cols="55" style="resize: none;" class="ui-widget-content ui-corner-all"  value="" placeholder="输入需要阅读的内容"></textarea>
-        </li>
-        <li>&nbsp;</li>
-        <li>
-            <button onclick="read()">朗读</button>
-        </li>
-    </ul>
+<form >
+    <div class="alert alert-info oper">$_("info! enter the information to be read below")</div>
+    <br />
+    <textarea id="info" rows="5" cols="55" style="resize: none;" class="ui-widget-content ui-corner-all"  value="" placeholder="$_('please input what you need to read')"></textarea>
+    <br /><br />
+    <button type="button" class="btn btn-primary" onclick="read_word()">$_('read')</button>
+    <br /><br />
 </form>
 <script>
-    function read(){
+
+    function read_word(){
+        var filepath = '';
+        var info = $(ELT)("#info").val();
+        console.log($(ELT)("#inputfile").val())
+        if(filepath == "" && info == ""){
+            alert("123")
+            return false;
+        }
         var url = "/readbook?" + new Date().getTime();
         $(ELT).ajax({
             url : url,
             type : 'POST',
             async: false,
-            data: "info=" + $(ELT)("#info").val(),
+            data: "info=" + info + "&filepath=" + filepath,
             dataType : 'text',
             success:function(text){
                 if(text == 0){
-                    custAlert("操作成功", "播放音乐成功！");
+                    custAlert("$_('opersucc')", "$_('read the end')");
                 }else{
-                    custAlert("操作成功", "播放音乐成功！");
+                    custAlert("$_('operfail')", "$_('read failed')");
                 }
             },
             error:function(){
-                custAlert("操作成功", "播放音乐成功！");
+                custAlert("$_('operfail')", "$_('read failed')");
             }
         });
     }

@@ -3,25 +3,25 @@
     <div class="form-group">
         <label>$_('user name')</label><span class="star">*</span>
         <i class="fa1 fa fa-user fa-lg"></i>
-        <input type="text" class="form-control" name="username" placeholder="请输入名称" style="width:200px;margin:-30px 0 0 100px;border-radius:5px;">
+        <input type="text" class="form-control" name="username" placeholder="$_('please enter your user name')" style="width:200px;margin:-30px 0 0 100px;border-radius:5px;">
     </div>
     </br>
     <div class="form-group">
         <label>$_('password')</label><span class="star">*</span>
         <i class="fa1 fa fa-lock fa-lg"></i>
-        <input type="password" class="form-control" name="passwd1" placeholder="请输密码" style="width:200px;margin:-30px 0 0 100px;border-radius:5px;">
+        <input type="password" class="form-control" name="passwd1" placeholder="$_('please enter your new password')" style="width:200px;margin:-30px 0 0 100px;border-radius:5px;">
     </div>
     </br>
     <div class="form-group">
         <label>$_('confirm password')</label><span class="star">*</span>
         <i class="fa2 fa fa-lock fa-lg"></i>
-        <input type="password" class="form-control" name="passwd2" placeholder="请输密码" style="width:200px;margin:-30px 0 0 100px;border-radius:5px;">
+        <input type="password" class="form-control" name="passwd2" placeholder="$_('please confirm your new password')" style="width:200px;margin:-30px 0 0 100px;border-radius:5px;">
     </div>
     <br/>
     <div class="form-group">
         <label>$_('email')</label><span class="star">*</span>
         <i class="fa1 fa fa-envelope fa-fw"></i>
-        <input type="email" class="form-control" name="email" placeholder="请输邮箱" style="width:200px;margin:-30px 0 0 100px;border-radius:5px;">
+        <input type="email" class="form-control" name="email" placeholder="$_('please enter your email')" style="width:200px;margin:-30px 0 0 100px;border-radius:5px;">
     </div>
 </form>
 <script>
@@ -37,12 +37,12 @@
                 username: {
                     validators: {
                         notEmpty: {
-                            message: '<span style="margin-left:100px">用户名不能为空</span>'
+                            message: '<span style="margin-left:100px">$_("the username cannot be empty")</span>'
                         },
                         stringLength: {
                             min: 3,
                             max: 30,
-                            message: '<span style="margin-left:100px">长度必须在3-30之间</span>'
+                            message: '<span style="margin-left:100px">$_("the length must be between 3 and 30")</span>'
                         },
                         /*regexp: {
                             regexp: ,
@@ -53,38 +53,38 @@
                 passwd1: {
                     validators: {
                         notEmpty: {
-                            message: '<span style="margin-left:100px">密码不能为空</span>'
+                            message: '<span style="margin-left:100px">$_("the password cannot be empty")</span>'
                         },
                         stringLength: {
                             min: 6,
                             max: 12,
-                            message: '<span style="margin-left:100px">长度必须在6-12之间</span>'
+                            message: '<span style="margin-left:100px">$_("the length must be between 6 and 12")</span>'
                         },
                     }
                 },
                 passwd2: {
                     validators: {
                         notEmpty: {
-                            message: '<span style="margin-left:100px">密码不能为空</span>'
+                            message: '<span style="margin-left:100px">$_("the password cannot be empty")</span>'
                         },
                         stringLength: {
                             min: 6,
                             max: 12,
-                            message: '<span style="margin-left:100px">长度必须在6-12之间</span>'
+                            message: '<span style="margin-left:100px">$_("the length must be between 6 and 12")</span>'
                         },
                         identical: {
                             field: 'passwd1',
-                            message: '<span style="margin-left:100px">输入的密码不一致</span>'
+                            message: '<span style="margin-left:100px">$_("the passwords entered do not match")</span>'
                         }
                     }
                 },
                 email: {
                     validators: {
                         notEmpty: {
-                            message: '<span style="margin-left:100px">邮箱不能为空</span>'
+                            message: '<span style="margin-left:100px">$_("the email cannot be empty")</span>'
                         },
                         emailAddress: {
-                            message: '<span style="margin-left:100px">不是正确的email地址</span>'
+                            message: '<span style="margin-left:100px">$_("not the correct email address")</span>'
                         }
                     }
                 },

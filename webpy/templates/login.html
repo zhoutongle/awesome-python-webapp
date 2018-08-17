@@ -4,7 +4,7 @@ $def with(content)
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>集群登陆</title>
+        <title>$_('login manager system')</title>
         <!--用百度的静态资源库的cdn安装bootstrap环境-->
         <!-- Bootstrap 核心 CSS 文件 -->
         <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -121,13 +121,13 @@ $def with(content)
         if(!username){
             $(ELT)(".loginerror").html('');
             $(ELT)(".loginerror").show();
-            $(ELT)(".loginerror").html("用户名不能为空！");
+            $(ELT)(".loginerror").html("$_('the username cannot be empty')");
             return false;
         }
         if(!password){
             $(ELT)(".loginerror").html('');
             $(ELT)(".loginerror").show();
-            $(ELT)(".loginerror").html("密码不能为空！");
+            $(ELT)(".loginerror").html("$_('the password cannot be empty')");
             return false;
         }
         $(ELT).ajax({
@@ -149,7 +149,7 @@ $def with(content)
                         }
                         $(ELT)(".loginerror").html('');
                         $(ELT)(".loginerror").show();
-                        $(ELT)(".loginerror").html("登陆成功！");
+                        $(ELT)(".loginerror").html("$_('login success')");
                         $(ELT)(window.location).attr('href', '/');
                     }else{
                         $(ELT)(".loginerror").html('');
@@ -161,7 +161,7 @@ $def with(content)
             error:function(){
                 $(ELT)(".loginerror").html('');
                 $(ELT)(".loginerror").show();
-                $(ELT)(".loginerror").html("密码或账号错误！");
+                $(ELT)(".loginerror").html("$_('wrong account or password')");
             }
         });
     }

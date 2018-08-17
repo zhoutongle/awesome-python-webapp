@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;" charset="utf-8"/>
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="http://jqueryui.com/resources/demos/style.css">
+<link rel="stylesheet" type="text/css" href="static/css/dataTable.css">
+<link rel="stylesheet" type="text/css" href="static/css/style.css">
+<link rel="stylesheet" type="text/css" href="static/css/icon-picker.css">
+<link rel="stylesheet" type="text/css" href="static/css/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/bootstrapValidator.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/zTreeStyle.css">
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script type="text/javascript" src="static/js/utils.js"></script>
+<script type="text/javascript" src="static/js/lib/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="static/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="static/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="static/js/echarts.js"></script>
+<script type="text/javascript" src="static/js/iconPicker.js"></script>
+<script type="text/javascript" src="static/js/bootstrapValidator.min.js"></script>
+<script type="text/javascript" src="static/js/geo.js"></script>
+<script type="text/javascript" src="static/js/jquery.ztree.all-3.5.js"></script>
+
+<title>$_("manager system")</title>
+</head>
+<html>
+    <ul id="treeDemo" class="ztree"></ul>
+</html>
+<script type="text/javascript">
+    var setting = { 
+        data: { 
+            simpleData: { 
+                enable: true 
+            } 
+        } 
+    }; 
+     
+    var zNodes = [{ 
+        id: 1, 
+        pId: 0, 
+        name: "父节点1 - 展开", 
+        open: true 
+    }, 
+    { 
+        id: 11, 
+        pId: 1, 
+        name: "父节点11 - 折叠" 
+    }];
+    $(document).ready(function() { 
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes); 
+    });
+</script>

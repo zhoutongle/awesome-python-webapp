@@ -12,4 +12,3 @@ def say_word(content):
     engine.say(content)
     engine.runAndWait()
 
-

@@ -8,6 +8,9 @@ import platform
 import subprocess
 import codecs
 import locale
+import socket
+import uuid
+import getpass
  
 '''
     python中，platform模块给我们提供了很多方法去获取操作系统的信息
@@ -151,6 +154,32 @@ def getLocalIP():
                 return interface, routingIPAddr
             except KeyError:
                 pass
+                
+def get_host_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip
+    
+def get_AddressIp():
+    '''获取本机IP'''
+    return socket.gethostbyname(socket.gethostname())
+
+def get_Mac():
+    '''获取MAC地址'''
+    mac=uuid.UUID(int = uuid.getnode()).hex[-12:]
+    return ':'.join(mac[e:e+2].upper() for e in xrange(0,11,2))
+
+def get_localDataPath():
+    '''当前用户路径'''
+    return os.path.expanduser('~')
+
+def get_UserName():
+    '''当前用户名'''
+    return getpass.getuser()
 #################################################################################################################### 
 def get_system_encoding():
     """
@@ -174,6 +203,11 @@ def get_system_info():
      
     hidden_hostname = True
     system_info = {}
+    all_ip = ''
+    if get_host_ip() not in all_ip:
+        all_ip = all_ip + " " + get_host_ip()
+    if get_AddressIp() not in all_ip:
+        all_ip = all_ip + " " + get_AddressIp()
      
     if mswindows:
         uname = list(platform.uname())
@@ -205,19 +239,27 @@ def get_system_info():
                 system_info['computer_network_name'] = get_node()
                 system_info['computer_cpu_info'] = get_processor()
                 system_info['system_type'] = get_system()
+                system_info['local_ip'] = all_ip
+                system_info['mac_address'] = get_Mac()
+                system_info['username'] = get_UserName()
+                system_info['userpath'] = get_localDataPath()
         except Exception as e:
             print e.message.decode(DEFAULT_LOCALE_ENCODING)
 
      
     if linux:
-       system_info['system_name'] = get_platform()
-       system_info['system_version'] = get_version()
-       system_info['system_sum'] = get_architecture()
-       system_info['computer_type'] = get_machine()
-       system_info['computer_network_name'] = get_node()
-       system_info['computer_cpu_info'] = get_processor()
-       system_info['system_type'] = get_system()
-       system_info['total_info'] = get_uname()
+        system_info['system_name'] = get_platform()
+        system_info['system_version'] = get_version()
+        system_info['system_sum'] = get_architecture()
+        system_info['computer_type'] = get_machine()
+        system_info['computer_network_name'] = get_node()
+        system_info['computer_cpu_info'] = get_processor()
+        system_info['system_type'] = get_system()
+        system_info['total_info'] = get_uname()
+        system_info['local_ip'] = all_ip
+        system_info['mac_address'] = get_Mac()
+        system_info['username'] = get_UserName()
+        system_info['userpath'] = get_localDataPath()
     return system_info
     
 '''    

@@ -3,22 +3,22 @@ $def with(content)
 <br /><br />
 <div id="baseinfo" align="center">
     <div id="vitals" style="width:500px">
-        <h2><span>操作列表</span></h2>    
+        <h2><span>$_("operation list")</span></h2>    
         <table class="stripMe" id="vitelsTable" cellpadding="0">        
             <tr>
-                <td>播放</td>
+                <td>$_("play")</td>
                 <td><button class="fa fa-play-circle fa-2x" onclick="play_music('play')"></button></td>
             </tr>
             <tr>
-                <td>暂停</td>
+                <td>$_('pause')</td>
                 <td><button class="fa fa-pause-circle fa-2x" onclick="play_music('pause')"></button></td>
             </tr>
             <tr>
-                <td>开始</td>
+                <td>$_("start")</td>
                 <td><button class="glyphicon glyphicon-play-circle" onclick="play_music('unpause')"></button></td>
             </tr>
             <tr>
-                <td>停止</td>
+                <td>$_("stop")</td>
                 <td><button class="fa fa-stop-circle fa-2x" onclick="play_music('stop')"></button></td>
             </tr>
         </table>
@@ -28,8 +28,8 @@ $def with(content)
 <table id="music_table">
     <thead>
         <th style="width:10%"><input type="checkbox" onchange="check_all(this)"></th>
-        <th style="width:70%">文件路径</th>
-        <th style="width:20%">操作</th>
+        <th style="width:70%">$_("file path")</th>
+        <th style="width:20%">$_("operation")</th>
     </thead>
     <tbody>
         $for info in content:
@@ -37,7 +37,8 @@ $def with(content)
                 <td><input type="checkbox" class="oper"></td>
                 <td class="name" value="$info" title="$info">$info</td>
                 <td>
-                    <button onclick="play_music('play', '$info')"><i class="fa fa-play-circle fa-2x" title="播放"></i></button>
+                    <button onclick="play_music('play', '$info')"><i class="fa fa-play-circle fa-2x" title="$_('play')"></i></button>
+                    <button onclick="play_music('stop', '$info')"><i class="fa fa-stop-circle fa-2x" title="$_('stop')"></i></button>
                 </td>
             </tr>
     </tbody>
@@ -91,13 +92,13 @@ $def with(content)
             dataType : 'text',
             success:function(text){
                 if(text == 0){
-                    custAlert("操作成功", "播放音乐成功！");
+                    custAlert("$_('opersucc')", "$_('play music succeed')");
                 }else{
-                    custAlert("操作失败", "播放音乐失败！");
+                    custAlert("$_('operfail')", "$_('play music failed')");
                 }
             },
             error:function(){
-                custAlert("操作失败", "播放音乐失败！");
+                custAlert("$_('operfail')", "$_('play music failed')");
             }
         });
     }

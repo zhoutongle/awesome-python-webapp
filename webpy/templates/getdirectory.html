@@ -1,0 +1,52 @@
+$def with (content)
+
+<div id='clusterservicelistauth' style="margin-top:10px;">
+    <select id ="queryDevice" class="" style="width:60px;border-radius:5px;"> 
+        <option>C:</option>
+        <option>D:</option>
+        <option>E:</option>
+        <option>F:</option>
+    </select>
+    <br/>
+    <br/>
+    <div id='service_auth_head'>
+        <p id='service_auth_head_1' style="width:500px">目录结构</p>
+    </div>
+    <div class="service_auth_ztree" style="width:500px">
+        <div id="treeDemo0" class="ztree"></div>
+        <div id="treeDemo1" class="ztree"></div>
+        <div id="treeDemo2" class="ztree"></div>
+        <div id="treeDemo3" class="ztree"></div>
+    </div>
+</div>
+<SCRIPT type="text/javascript">
+    var setting = { 
+        data: { 
+            simpleData: { 
+                enable: true 
+            } 
+        },
+        async: {
+            enable: true,
+            url: "/getdirectory?" + new Date().getTime(),
+            autoParam: ["id","name=n","level=lv","path"],
+            otherParam:{"otherParam": "zTreeAsyncTest"},
+        }
+    }; 
+    var zNodes = [{'name': "C:", isParent: "true", "path": "c:\\"}];
+    $(ELT)(document).ready(function() { 
+        $(ELT).fn.zTree.init($(ELT)("#treeDemo0"), setting, zNodes); 
+    });
+    var zNodes = [{'name': "D:", isParent: "true", "path": "d:\\"}];
+    $(ELT)(document).ready(function() { 
+        $(ELT).fn.zTree.init($(ELT)("#treeDemo1"), setting, zNodes); 
+    });
+    var zNodes = [{'name': "E:", isParent: "true", "path": "e:\\"}];
+    $(ELT)(document).ready(function() { 
+        $(ELT).fn.zTree.init($(ELT)("#treeDemo2"), setting, zNodes); 
+    });
+    var zNodes = [{'name': "F:", isParent: "true", "path": "f:\\"}];
+    $(ELT)(document).ready(function() { 
+        $(ELT).fn.zTree.init($(ELT)("#treeDemo3"), setting, zNodes); 
+    });
+</SCRIPT>

@@ -13,7 +13,7 @@
             async: false,
             dataType: 'json',
             //beforeSend: function(){
-            //    custLoading("正在加载数据...");
+            //    custLoading("$_('loading data ...')");
             //},
             success:function(text){
             //    $(ELT)('#loaddialog').dialog('close');
@@ -21,7 +21,7 @@
             },
             error:function(){
             //    $(ELT)('#loaddialog').dialog('close');
-                custAlert("操作失败", "获得系统信息失败！")
+                custAlert("$_('operfail')", "$_('failed to obtain system information')")
             }
         });
         cpu_intv_time=setTimeout(function(){getcpuinfoa();},20000);
@@ -38,14 +38,14 @@
         var chart = echarts.init(document.getElementById("linechart"));
         var option = {
             title: {
-                text: 'cpu和内存使用率',
-                subtext: '百分制'
+                text: '$_("cpu and memory usage")',
+                subtext: '$_("%")'
             },
             tooltip: {
                 trigger: 'axis'
             },
             legend: {
-                data:['cpu使用率', '内存使用率']
+                data:['$_("cpu usage")', '$_("memory usage")']
             },
             grid: {
                 left: '3%',
@@ -75,13 +75,13 @@
                     data: cpu_data,
                     markPoint: {
                         data: [
-                            {type: 'max', name: '最大值'},
-                            {type: 'min', name: '最小值'}
+                            {type: 'max', name: '$_("max")'},
+                            {type: 'min', name: '$_("min")'}
                         ]
                     },
                     markLine: {
                         data: [
-                            {type: 'average', name: '平均值'}
+                            {type: 'average', name: '$_("average")'}
                         ]
                     }
                 },
@@ -91,13 +91,13 @@
                     data: mem_data,
                     markPoint: {
                         data: [
-                            {type: 'max', name: '最大值'},
-                            {type: 'min', name: '最小值'}
+                            {type: 'max', name: '$_("max")'},
+                            {type: 'min', name: '$_("min")'}
                         ]
                     },
                     markLine: {
                         data: [
-                            {type: 'average', name: '平均值'}
+                            {type: 'average', name: '$_("average")'}
                         ]
                     }
                 }

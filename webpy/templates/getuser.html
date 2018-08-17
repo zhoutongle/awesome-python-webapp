@@ -12,7 +12,7 @@ $def with(content)
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="fa fa-plus fa-lg" href="javascript:add_user()">&nbsp; $_('new')</a></li>
+                    <li><a class="fa fa-plus fa-lg" href="javascript:add_user()">&nbsp; $_('create')</a></li>
                     <li class="divider"></li>
                     <li><a class="fa fa-trash fa-lg" href="javascript:delete_user()">&nbsp; $_('delete')</a></li>
                     <li class="divider"></li>
@@ -26,8 +26,8 @@ $def with(content)
 <table id="user_table">
     <thead>
         <th style="width:10%"><input type="checkbox" onchange="check_all(this)"></th>
-        <th style="width:20%">用户名</th>
-        <th style="width:80%">邮箱</th>
+        <th style="width:20%">$_("username")</th>
+        <th style="width:80%">$_("email")</th>
     </thead>
     <tbody>
         $for info in content:

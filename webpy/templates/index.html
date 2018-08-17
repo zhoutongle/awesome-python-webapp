@@ -13,12 +13,12 @@ $def with(content)
 <link rel="stylesheet" type="text/css" href="static/css/icon-picker.css">
 <link rel="stylesheet" type="text/css" href="static/css/font-awesome-4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="static/css/bootstrapValidator.min.css">
-<!--link rel="stylesheet" type="text/css" href="static/css/easyui.css"-->
+<link rel="stylesheet" type="text/css" href="static/css/bootstrap-select.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/zTreeStyle.css">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <script type="text/javascript" src="static/js/utils.js"></script>
@@ -28,11 +28,11 @@ $def with(content)
 <script type="text/javascript" src="static/js/echarts.js"></script>
 <script type="text/javascript" src="static/js/iconPicker.js"></script>
 <script type="text/javascript" src="static/js/bootstrapValidator.min.js"></script>
+<script type="text/javascript" src="static/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="static/js/geo.js"></script>
-<title>$_("manager system")</title>
+<script type="text/javascript" src="static/js/jquery.ztree.all-3.5.js"></script>
 
-<script type="text/JavaScript">
-</script>
+<title>$_("manager system")</title>
 </head>
 <body>
     <div id="neversike" style="margin-top:40px">
@@ -57,7 +57,7 @@ $def with(content)
                 <li><a href="javascript:void(0)" onclick="settime()"><i class="fa fa-calendar fa-fw"></i>$_('set time')</a></li>
                 <li class="margin-left:100px">
                     <div style="margin-top:8px;border:1px solid #A6C9E2;border-radius:4px;padding:2px">
-                        <i class="fa fa-user fa-fw"></i>当前用户:
+                        <i class="fa fa-user fa-fw"></i>$_("currentuser"):
                         <span id="currentuser"></span>
                     </div>
                 </li>
@@ -130,7 +130,8 @@ $def with(content)
                             <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
                                 <li><a href="javascript:get_user()"><i class="fa fa-user fa-fw"></i>&nbsp; $_("user managerment")</a></li>
                                 <li><a href="javascript:modify_password()"><i class="fa fa-pencil fa-fw"></i>&nbsp; $_("change password")</a></li>
-                                <li><a href="javascript:get_log()"><i class="fa fa-eye fa-fw"></i>&nbsp; $_('look log')<span class="label label-warning pull-right" id="num"></span></a></li>
+                                <li><a href="javascript:get_log()"><i class="fa fa-eye fa-fw"></i>&nbsp; $_('look log')<span class="badge label label-warning pull-right" id="num"></span></a></li>
+                                <li><a href="javascript:get_right_content('/getdirectory')"><i class="fa fa-fw"></i>&nbsp; 目录</a><li>
                             </ul>
                         </li>
                         <li><a href="javascript:get_icon_info()"><i class="fa fa-credit-card-alt fa-fw"></i>&nbsp; $_('material managerment')</a></li>
@@ -143,7 +144,7 @@ $def with(content)
                             <ul id="charts" class="nav nav-list collapse secondmenu" style="height: 0px;">
                                 <li><a href="javascript:get_disk_usage()"><i class="fa fa-area-chart fa-fw"></i>&nbsp; $_('disk usage')</a></li>
                                 <li><a href="javascript:get_cpu_usage()"><i class="glyphicon glyphicon-leaf"></i>&nbsp; $_('memory usage')</a></li>
-                                <li><a href="javascript:get_geo()"><i class="glyphicon glyphicon-leaf"></i>&nbsp; $_('geo')</a></li>
+                                <li><a href="javascript:get_geo()"><i class="glyphicon glyphicon-leaf"></i>&nbsp; 地图</a></li>
                             </ul>
                         </li>
                         <li>
@@ -185,6 +186,26 @@ $def with(content)
         $(ELT)("#num").html("$content");
         $(ELT)("#currentuser").html(getCookie("username"));
     });
+    function get_right_content(URL){
+        var url = URL + "?" + new Date().getTime();
+        $(ELT).ajax({
+            url : url,
+            data: '',
+            async: false,
+            dataType: 'html',
+            beforeSend: function(){
+                custLoading("$_('loading data ...')");
+            },
+            success:function(text){
+                $(ELT)('#loaddialog').dialog('close');
+                $(ELT)("#content").html(text);
+            },
+            error:function(){
+                $(ELT)('#loaddialog').dialog('close');
+                custAlert("$_('operfail')", "$_('failed to get information')")
+            }
+        });
+    }
     function get_user(){
         var url = "/getuser?" + new Date().getTime();
         $(ELT).ajax({
@@ -287,7 +308,7 @@ $def with(content)
                             data: data,
                             dataType: 'text',
                             beforeSend: function(){
-                                custLoading("$_('adding user...')");
+                                custLoading("$_('modify password ...')");
                             },
                             error: function(){
                                 $(ELT)("#loaddialog").dialog("close");
@@ -301,10 +322,11 @@ $def with(content)
                                     if(parseInt(text) == 0){
                                         modifymanage.dialog('close');
                                         $(ELT)("#loaddialog").dialog("close");
-                                        custAlert("$_('opersucc')", "$_('add user success')")
+                                        custAlert("$_('opersucc')", "$_('modify password success')")
+                                        window.location="/logout"
                                     }else{
                                         $(ELT)("#loaddialog").dialog("close");
-                                        custAlert("$_('operfail')", "$_('add user failed')")
+                                        custAlert("$_('operfail')", "$_('modify password failed')")
                                     }
                                 }
                             }
@@ -344,26 +366,6 @@ $def with(content)
             $(ELT)('#loaddialog').dialog('close');
         });
         $(ELT)("#settimedialog").dialog("open");
-    }
-    function logout(){
-        var url = "/logout?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            type : 'POST',
-            async: false,
-            dataType : '',
-            success:function(text){
-                if(text == 0){
-                    alert("000");
-                }else{
-                    alert("1error!!!");
-                }
-            },
-            error:function(){
-                alert("2error!!!");
-            }
-        });
-        
     }
     function get_disk_usage(){
         var url = "/getdisk?" + new Date().getTime();

@@ -3,35 +3,51 @@ $def with(content)
 <br /><br />
 <div id="baseinfo" align="center">
     <div id="vitals" style="width:500px">
-        <h2><span>基础信息</span></h2>    
+        <h2><span>$_('basic information')</span></h2>    
         <table class="stripMe" id="vitelsTable" cellpadding="0">        
             <tr>
-                <td>操作系统名称及版本号</td>
+                <td>$_('operating system name and version number')</td>
                 <td>$content['system_name']</td>
             </tr>
             <tr>
-                <td>操作系统版本号</td>
+                <td>$_('operating system version number')</td>
                 <td>$content['system_version']</td>
             </tr>
             <tr>
-                <td>操作系统的位数</td>
+                <td>$_('operating system digits')</td>
                 <td>$content['system_sum'][0] $content['system_sum'][1]</td>
             </tr>
             <tr>
-                <td>计算机类型</td>
+                <td>$_('type of computer')</td>
                 <td>$content['computer_type']</td>
             </tr>
             <tr>
-                <td>计算机的网络名称</td>
+                <td>$_('the network name of the computer')</td>
                 <td>$content['computer_network_name']</td>
             </tr>
             <tr>
-                <td>计算机处理器信息</td>
+                <td>$_('computer processor information')</td>
                 <td>$content['computer_cpu_info']</td>
             </tr>
             <tr>
-                <td>操作系统类型</td>
+                <td>$_('operating system type')</td>
                 <td>$content['system_type']</td>
+            </tr>
+            <tr>
+                <td>IP</td>
+                <td>$content['local_ip']</td>
+            </tr>
+            <tr>
+                <td>$_("mac adress")</td>
+                <td>$content['mac_address']</td>
+            </tr>
+            <tr>
+                <td>$_("currentuser")</td>
+                <td>$content['username']</td>
+            </tr>
+            <tr>
+                <td>$_("user path")</td>
+                <td>$content['userpath']</td>
             </tr>
         </table>
     </div>

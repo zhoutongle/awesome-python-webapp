@@ -5,6 +5,9 @@ msgstr "主页"
 msgid "manager system"
 msgstr "管理系统"
 
+msgid "login manager system"
+msgstr "登陆管理系统"
+
 msgid "home page"
 msgstr "首页"
 
@@ -204,11 +207,182 @@ msgstr "名称"
 msgid "password"
 msgstr "密码"
 
+msgid "old password"
+msgstr "旧密码"
+
+msgid "new password"
+msgstr "新密码"
+
 msgid "confirm password"
 msgstr "确认密码"
+
+msgid "please enter your original password"
+msgstr "请输入您原来的密码"
+
+msgid "please enter your new password"
+msgstr "请输入您新的密码"
+
+msgid "please confirm your new password"
+msgstr "请确认您的新密码"
+
+msgid "please enter your user name"
+msgstr "请输入您的名称"
+
+msgid "please enter your email"
+msgstr "请输入您的邮箱"
 
 msgid "email"
 msgstr "邮箱"
 
-msgid "new"
+msgid "create"
 msgstr "创建"
+
+msgid "username"
+msgstr "用户名"
+
+msgid "currentuser"
+msgstr "当前用户"
+
+msgid "the username cannot be empty"
+msgstr "用户名不能为空!"
+
+msgid "the password cannot be empty"
+msgstr "密码不能为空!"
+
+msgid "the email cannot be empty"
+msgstr "邮箱不能为空!"
+
+msgid "login success"
+msgstr "登陆成功!"
+
+msgid "wrong account or password"
+msgstr "密码或账号错误！"
+
+msgid "the length must be between 6 and 12"
+msgstr "长度必须在6-12之间！"
+
+msgid "the length must be between 3 and 30"
+msgstr "长度必须在3-30之间！"
+
+msgid "the passwords entered do not match"
+msgstr "输入的密码不一致！"
+
+msgid "not the correct email address"
+msgstr "不是正确的email地址！"
+
+msgid "failed to obtain system information"
+msgstr "获取系统信息失败！"
+
+msgid "max"
+msgstr "最大值"
+
+msgid "min"
+msgstr "最小值"
+
+msgid "average"
+msgstr "平均值"
+
+msgid "cpu usage"
+msgstr "cpu使用率"
+
+msgid "cpu and memory usage"
+msgstr "内存和CPU使用率"
+
+msgid "usage"
+msgstr "使用率"
+
+msgid "used size"
+msgstr "已使用大小"
+
+msgid "free size"
+msgstr "空闲大小"
+
+msgid "search icon"
+msgstr "搜索图标"
+
+msgid "operation list"
+msgstr "操作列表"
+
+msgid "operation"
+msgstr "操作"
+
+msgid "file path"
+msgstr "文件路径"
+
+msgid "play"
+msgstr "播放"
+
+msgid "pause"
+msgstr "暂停"
+
+msgid "start"
+msgstr "开始"
+
+msgid "stop"
+msgstr "停止"
+
+msgid "play music succeed"
+msgstr "播放音乐成功！"
+
+msgid "play music failed"
+msgstr "播放音乐失败！"
+
+msgid "current time"
+msgstr "当前时间"
+
+msgid "info! enter the information to be read below"
+msgstr "信息！将需要朗读的信息输入到下面！"
+
+msgid "please input what you need to read"
+msgstr "请输入需要朗读的内容！"
+
+msgid "read"
+msgstr "朗读"
+
+msgid "read the end"
+msgstr "朗读结束！"
+
+msgid "read failed"
+msgstr "朗读失败！"
+
+msgid "basic information"
+msgstr "基础信息"
+
+msgid "operating system name and version number"
+msgstr "操作系统名称及版本号"
+
+msgid "operating system version number"
+msgstr "操作系统版本号"
+
+msgid "operating system digits"
+msgstr "操作系统的位数"
+
+msgid "type of computer"
+msgstr "计算机类型"
+
+msgid "the network name of the computer"
+msgstr "计算机的网络名称"
+
+msgid "computer processor information"
+msgstr "计算机处理器信息"
+
+msgid "operating system type"
+msgstr "操作系统类型"
+
+msgid "modify password ..."
+msgstr "正在修改密码..."
+
+msgid "modify password succeed"
+msgstr "修改密码成功！"
+
+msgid "modify password failed"
+msgstr "修改密码失败！"
+
+msgid "modify"
+msgstr "修改"
+
+msgid "user does not exist"
+msgstr "用户不存在"
+
+msgid "password is error"
+msgstr "密码错误"

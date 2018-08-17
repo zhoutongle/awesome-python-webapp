@@ -53,7 +53,8 @@ urls = (
     '/deleteuser', 'deleteuser',
     '/getgeo', 'getgeo',
     '/modifypassword', 'modifypassword',
-    '/moviedownload', 'moviedownload'
+    '/moviedownload', 'moviedownload',
+    '/getdirectory', 'getdirectory'
 )
 
 app = web.application(urls, globals())
@@ -76,6 +77,7 @@ class index:
 class info:
     def GET(self):
         content = get_system_info()
+        print content
         return render.info(content)
 
 class login:
@@ -121,7 +123,6 @@ class modifypassword:
         params = web.input()
         content = {}
         content['currentuser'] = params['currentuser']
-        print content
         return render.modifypassword(content)
     def POST(self):
         params = web.input()
@@ -232,9 +233,15 @@ class readbook:
         content = []
         return render.readbook(content)
     def POST(self):
+        file_content = ""
         params = web.input()
-        info = params['info']
-        say_word(info)
+        file_content = params['info']
+        filepath = params['filepath']
+        if filepath:
+            with open(filepath, 'r') as f:
+                file_content = f.read()
+        print file_content
+        say_word(file_content)
         return 0
         
 class getmovie:
@@ -301,6 +308,43 @@ class moviedownload:
     def POST(self):
         filename = currpath + "movie_info_" + datetime.datetime.now().strftime("_%Y_%m_%d_%H_%M_%S_%f") + ".xls"           
         return 0
+        
+class getdirectory:
+    def GET(self):
+        content = []
+        return render.getdirectory(content)
+    def POST(self):
+        params = web.input()
+        targetpath = params['path']
+        children = []
+        show_file = True
+        try:
+            pathlist = os.listdir(targetpath)
+            pathdir = []
+            for i in range(len(pathlist)):
+                pathlist[i] = pathlist[i]
+            pathlist.sort()
+            for path in pathlist:
+                if path.find('.') == 0:
+                    continue
+                if not show_file:
+                    subpath = os.path.join(targetpath, path)
+                    if os.path.isdir(subpath):
+                        pathdir.append(subpath)
+                        children.append({"name": path, "path": subpath, "isParent":"true"})
+                else:
+                    subpath = os.path.join(targetpath, path)
+                    pathdir.append(subpath)
+                    if os.path.isdir(subpath):
+                        if subpath.find("internal_op") < 0:
+                            children.append({"name": path, "path": subpath, "isParent":"true"})
+                    else:
+                        children.append({"name": path, "path": subpath, "isParent":"false"})
+            if len(pathdir) > 20000:
+                return {"name": "too many dir", "dirnums": len(pathdir)}
+        except Exception, e:
+            print e
+        return simplejson.dumps(children)
         
 if __name__ == "__main__":
     try:
