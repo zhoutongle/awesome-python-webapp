@@ -25,16 +25,40 @@ $def with(content)
 
 <table id="user_table">
     <thead>
-        <th style="width:10%"><input type="checkbox" onchange="check_all(this)"></th>
-        <th style="width:20%">$_("username")</th>
-        <th style="width:80%">$_("email")</th>
+        <th style="width:0%"><input type="checkbox" onchange="check_all(this)"></th>
+        <th style="width:0%">车次</th>
+        <th style="width:0%">车站</th>
+        <th style="width:0%">时间</th>
+        <th style="width:0%">历时</th>
+        <th style="width:0%">商务座</th>
+        <th style="width:0%">一等座</th>
+        <th style="width:0%">二等座</th>
+        <th style="width:0%">高级软卧</th>
+        <th style="width:0%">软卧</th>
+        <th style="width:0%">动卧</th>
+        <th style="width:0%">硬卧</th>
+        <th style="width:0%">软座</th>
+        <th style="width:0%">硬座</th>
+        <th style="width:0%">无座</th>
     </thead>
     <tbody>
         $for info in content:
             <tr>
                 <td><input type="checkbox" class="oper"></td>
-                <td class="name" value="$(info['username'])">$info['username']</td>
-                <td>$info['mail']</td>
+                <td>$info['tra_cod']</td>
+                <td>$info['sta_lea']</td>
+                <td>$info['t_lea']</td>
+                <td>$info['t_dur']</td>
+                <td>$info['swz']</td>
+                <td>$info['ydz']</td>
+                <td>$info['edz']</td>
+                <td>$info['gr']</td>
+                <td>$info['rw']</td>
+                <td>$info['dw']</td>
+                <td>$info['yw']</td>
+                <td>$info['rz']</td>
+                <td>$info['yz']</td>
+                <td>$info['wz']</td>
             </tr>
     </tbody>
 </table>

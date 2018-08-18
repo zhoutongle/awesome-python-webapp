@@ -128,13 +128,13 @@ $def with(content)
                                 <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                                <li><a href="javascript:get_user()"><i class="fa fa-user fa-fw"></i>&nbsp; $_("user managerment")</a></li>
+                                <li><a href="javascript:get_right_content('/getuser')"><i class="fa fa-user fa-fw"></i>&nbsp; $_("user managerment")</a></li>
                                 <li><a href="javascript:modify_password()"><i class="fa fa-pencil fa-fw"></i>&nbsp; $_("change password")</a></li>
-                                <li><a href="javascript:get_log()"><i class="fa fa-eye fa-fw"></i>&nbsp; $_('look log')<span class="badge label label-warning pull-right" id="num"></span></a></li>
-                                <li><a href="javascript:get_right_content('/getdirectory')"><i class="fa fa-fw"></i>&nbsp; 目录</a><li>
+                                <li><a href="javascript:get_right_content('/getdirectory')"><i class="fa fa-sitemap fa-fw"></i>&nbsp; 目录</a><li>
+                                <li><a href="javascript:get_right_content('/getlog')"><i class="fa fa-eye fa-fw"></i>&nbsp; $_('look log')<span class="badge label label-warning pull-right" id="num"></span></a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:get_icon_info()"><i class="fa fa-credit-card-alt fa-fw"></i>&nbsp; $_('material managerment')</a></li>
+                        <li><a href="javascript:get_right_content('/geticoninfo')"><i class="fa fa-credit-card-alt fa-fw"></i>&nbsp; $_('material managerment')</a></li>
                         <li>
                             <a href="#charts" class="nav-header collapsed" data-toggle="collapse">
                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -142,9 +142,9 @@ $def with(content)
                                 <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul id="charts" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                                <li><a href="javascript:get_disk_usage()"><i class="fa fa-area-chart fa-fw"></i>&nbsp; $_('disk usage')</a></li>
-                                <li><a href="javascript:get_cpu_usage()"><i class="glyphicon glyphicon-leaf"></i>&nbsp; $_('memory usage')</a></li>
-                                <li><a href="javascript:get_geo()"><i class="glyphicon glyphicon-leaf"></i>&nbsp; 地图</a></li>
+                                <li><a href="javascript:get_right_content('/getdisk')"><i class="fa fa-pie-chart fa-fw"></i>&nbsp; $_('disk usage')</a></li>
+                                <li><a href="javascript:get_right_content('/getcpuinfo')"><i class="fa fa-line-chart fa-fw"></i>&nbsp; $_('memory usage')</a></li>
+                                <li><a href="javascript:get_right_content('/getgeo')"><i class="fa fa-map fa-fw"></i>&nbsp; 地图</a></li>
                             </ul>
                         </li>
                         <li>
@@ -154,8 +154,8 @@ $def with(content)
                                 <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul id="voice" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                                <li><a href="javascript:get_music()"><i class="glyphicon glyphicon-music"></i>&nbsp; $_('music')</a></li>
-                                <li><a href="javascript:read_something()"><i class="glyphicon glyphicon-book"></i>&nbsp; $_('reading')</a></li>
+                                <li><a href="javascript:get_right_content('/getmusic')"><i class="glyphicon glyphicon-music"></i>&nbsp; $_('music')</a></li>
+                                <li><a href="javascript:get_right_content('/readbook')"><i class="glyphicon glyphicon-book"></i>&nbsp; $_('reading')</a></li>
                             </ul>
                         </li>
                         <li>
@@ -165,10 +165,11 @@ $def with(content)
                                 <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul id="search" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                                <li><a href="javascript:get_movie()"><i class="glyphicon glyphicon-certificate"></i>&nbsp; $_('dou ban')</a></li>
+                                <li><a href="javascript:get_right_content('/getmovie')"><i class="glyphicon glyphicon-certificate"></i>&nbsp; $_('dou ban')</a></li>
+                                <li><a href="javascript:get_right_content('/gettraininfo')"><i class="glyphicon glyphicon-certificate"></i>&nbsp; 火车票</a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:get_info()"><i class="glyphicon glyphicon-fire"></i>&nbsp; $_('about system')</a></li>
+                        <li><a href="javascript:get_right_content('/info')"><i class="glyphicon glyphicon-fire"></i>&nbsp; $_('about system')</a></li>
                     </ul>
                 </div>
                 <div class="col-md-10">
@@ -206,26 +207,6 @@ $def with(content)
             }
         });
     }
-    function get_user(){
-        var url = "/getuser?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            data: '',
-            async: false,
-            dataType: 'html',
-            beforeSend: function(){
-                custLoading("$_('loading data ...')");
-            },
-            success:function(text){
-                $(ELT)('#loaddialog').dialog('close');
-                $(ELT)("#content").html(text);
-            },
-            error:function(){
-                $(ELT)('#loaddialog').dialog('close');
-                custAlert("$_('operfail')", "$_('failed to get user information')")
-            }
-        });
-    }
     function info(){
         var url = "/info?" + new Date().getTime();
         var dirmanage = $(ELT)('<div id="dirmanagedialog" >').appendTo('body');
@@ -252,26 +233,6 @@ $def with(content)
             $(ELT)('#loaddialog').dialog('close');
         });
         $(ELT)("#dirmanagedialog").dialog("open");
-    }
-    function get_info(){
-        var url = "/info?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            data: '',
-            async: false,
-            dataType: 'html',
-            beforeSend: function(){
-                custLoading("$_('loading data ...')");
-            },
-            success:function(text){
-                $(ELT)('#loaddialog').dialog('close');
-                $(ELT)("#content").html(text);
-            },
-            error:function(){
-                $(ELT)('#loaddialog').dialog('close');
-                custAlert("operfail", "$_('failed to get system information')")
-            }
-        });
     }
     function modify_password(){
         var url = "/modifypassword?" + new Date().getTime();  
@@ -366,165 +327,5 @@ $def with(content)
             $(ELT)('#loaddialog').dialog('close');
         });
         $(ELT)("#settimedialog").dialog("open");
-    }
-    function get_disk_usage(){
-        var url = "/getdisk?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            data: '',
-            async: false,
-            dataType: 'html',
-            beforeSend: function(){
-                custLoading("$_('loading data ...')");
-            },
-            success:function(text){
-                $(ELT)('#loaddialog').dialog('close');
-                $(ELT)("#content").html(text);
-            },
-            error:function(){
-                $(ELT)('#loaddialog').dialog('close');
-                custAlert("$_('operfail')", "$_('failed to get disk information')")
-            }
-        });
-    }
-    function get_icon_info(){
-        var url = "/geticoninfo?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            data: '',
-            async: false,
-            dataType: 'html',
-            beforeSend: function(){
-                custLoading("$_('loading data ...')");
-            },
-            success:function(text){
-                $(ELT)('#loaddialog').dialog('close');
-                $(ELT)("#content").html(text);
-            },
-            error:function(){
-                $(ELT)('#loaddialog').dialog('close');
-                custAlert("$_('operfail')", "$_('failed to get icon information')")
-            }
-        });
-    }
-    function get_cpu_usage(){
-        var url = "/getcpuinfo?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            data: '',
-            async: false,
-            dataType: 'html',
-            beforeSend: function(){
-                custLoading("$_('loading data ...')");
-            },
-            success:function(text){
-                $(ELT)('#loaddialog').dialog('close');
-                $(ELT)("#content").html(text);
-            },
-            error:function(){
-                $(ELT)('#loaddialog').dialog('close');
-                custAlert("$_('operfail')", "$_('failed to get memory information')")
-            }
-        });
-    }
-    function get_log(){
-        var url = "/getlog?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            data: '',
-            async: false,
-            dataType: 'html',
-            beforeSend: function(){
-                custLoading("$_('loading data ...')");
-            },
-            success:function(text){
-                $(ELT)('#loaddialog').dialog('close');
-                $(ELT)("#content").html(text);
-            },
-            error:function(){
-                $(ELT)('#loaddialog').dialog('close');
-                custAlert("$_('operfail')", "$_('failed to get log information')")
-            }
-        });
-    }
-    function get_music(){
-        var url = "/getmusic?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            data: '',
-            async: false,
-            dataType: 'html',
-            beforeSend: function(){
-                custLoading("$_('loading data ...')");
-            },
-            success:function(text){
-                $(ELT)('#loaddialog').dialog('close');
-                $(ELT)("#content").html(text);
-            },
-            error:function(){
-                $(ELT)('#loaddialog').dialog('close');
-                custAlert("$_('operfail')", "$_('music failed to play')")
-            }
-        });
-    }
-    function read_something(){
-        var url = "/readbook?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            data: '',
-            async: false,
-            dataType: 'html',
-            beforeSend: function(){
-                custLoading("$_('loading data ...')");
-            },
-            success:function(text){
-                $(ELT)('#loaddialog').dialog('close');
-                $(ELT)("#content").html(text);
-            },
-            error:function(){
-                $(ELT)('#loaddialog').dialog('close');
-                custAlert("$_('operfail')", "$_('failure to read text')")
-            }
-        });
-    }
-    function get_movie(){
-        var url = "/getmovie?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            data: '',
-            async: false,
-            dataType: 'html',
-            beforeSend: function(){
-                custLoading("$_('loading data ...')");
-            },
-            success:function(text){
-                $(ELT)('#loaddialog').dialog('close');
-                $(ELT)("#content").html(text);
-            },
-            error:function(){
-                $(ELT)('#loaddialog').dialog('close');
-                custAlert("$_('operfail')", "$_('failed to get movie information')")
-            }
-        });
-    }
-    function get_geo(){
-        var url = "/getgeo?" + new Date().getTime();
-        $(ELT).ajax({
-            url : url,
-            data: '',
-            async: false,
-            dataType: 'html',
-            beforeSend: function(){
-                custLoading("$_('loading data ...')");
-            },
-            success:function(text){
-                $(ELT)('#loaddialog').dialog('close');
-                $(ELT)("#content").html(text);
-            },
-            error:function(){
-                $(ELT)('#loaddialog').dialog('close');
-                custAlert("$_('operfail')", "$_('failed to get geo')")
-            }
-        });
     }
 </script>

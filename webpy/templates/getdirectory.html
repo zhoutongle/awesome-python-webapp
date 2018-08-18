@@ -31,7 +31,14 @@ $def with (content)
             url: "/getdirectory?" + new Date().getTime(),
             autoParam: ["id","name=n","level=lv","path"],
             otherParam:{"otherParam": "zTreeAsyncTest"},
-        }
+        },
+        /*edit: {
+            enable: true,
+            removeTitle: "remove",
+            renameTitle: "rename",
+            showRemoveBtn: true,
+            showRenameBtn: true
+        }*/
     }; 
     var zNodes = [{'name': "C:", isParent: "true", "path": "c:\\"}];
     $(ELT)(document).ready(function() { 

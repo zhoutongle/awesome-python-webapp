@@ -24,6 +24,7 @@ from mp3_utils import *
 from read_utils import *
 from get_models import *
 from find_utils import *
+from huoche import *
 from base import _, session
 
 MONITOR_PATH = currpath + "\\utils\\monitor_reporter.py"
@@ -54,7 +55,8 @@ urls = (
     '/getgeo', 'getgeo',
     '/modifypassword', 'modifypassword',
     '/moviedownload', 'moviedownload',
-    '/getdirectory', 'getdirectory'
+    '/getdirectory', 'getdirectory',
+    '/gettraininfo', 'gettraininfo'
 )
 
 app = web.application(urls, globals())
@@ -345,6 +347,14 @@ class getdirectory:
         except Exception, e:
             print e
         return simplejson.dumps(children)
+        
+class gettraininfo:
+    def GET(self):
+        time = "20180819"
+        from_station = ''
+        to_station = ''
+        content = find_train(time, from_station, to_station)
+        render.gettraininfo(content)
         
 if __name__ == "__main__":
     try:
